@@ -1,0 +1,17 @@
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\Newtonsoft.Json.dll
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\Newtonsoft.Json.xml
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.csprojAssemblyReference.cache
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.Form_Settings.resources
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.csproj.GenerateResource.cache
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.csproj.CoreCompileInputs.cache
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.csproj.CopyComplete
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\HHPS_BB_Interface.exe.config
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\HHPS_BB_Interface.exe.manifest
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\HHPS_BB_Interface.application
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\HHPS_BB_Interface.exe
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\bin\Debug\HHPS_BB_Interface.pdb
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.Properties.Resources.resources
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.exe.manifest
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.application
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.exe
+C:\Users\amirs\source\repos\HHPS_BackgroundCount\HHPS_BackgroundCount\HHPS_BackgroundCount\obj\Debug\HHPS_BB_Interface.pdb
