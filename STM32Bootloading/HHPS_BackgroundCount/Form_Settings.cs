@@ -90,6 +90,18 @@ namespace STM32Bootloading
             try
             {
 
+                byte[] dataByte = new byte[2];
+                System.Threading.Thread.Sleep(100);
+                dataByte[0] = 0x00FF;
+                port.Write(dataByte, 0, 2);
+                // System.Threading.Thread.Sleep(1);
+                byte[] rx_buff = new byte[13];
+                rx_buff = ReadPortBytes(1);
+                if (rx_buff[0] == 0x79)
+                {
+
+                }
+
             }
             catch (Exception ex)
             {
@@ -108,8 +120,29 @@ namespace STM32Bootloading
             Btn_Disconnect.Enabled = false;
             Btn_Connect.Enabled = true;
             Btn_BootMode.Enabled = false;
-
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
         }
+
+        private void Btn_connectDevice_Disable()
+        {
+
+            Btn_Download_Memory.Enabled = false;
+            Btn_Get_Settings.Enabled = false;
+            Btn_Set_Settings.Enabled = false;
+            Btn_Erase_Memory.Enabled = false;
+            Connect_Device.Enabled = true;
+            Btn_Disconnect.Enabled = true;
+            Btn_Connect.Enabled = false;
+            Btn_BootMode.Enabled = false;
+            button1.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+        }
+         
 
         private void Btn_All_Enable()
         {
@@ -122,8 +155,11 @@ namespace STM32Bootloading
                 Btn_Disconnect.Enabled = true;
                 Btn_Connect.Enabled = false;
                 Btn_BootMode.Enabled = true;
-
-            }
+                button1.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+        }
         private void Btn_Erase_Memory_Click(object sender, EventArgs e)                 // this function sets 15 high risk zones, by sending the 32 bytes packet of data.
         {
             try
@@ -191,13 +227,14 @@ namespace STM32Bootloading
         {
             try
             {
+
                 string port_name = Combo_PortList.Text;
                 //combo_serialList = serialPorts[0];
                 port = new SerialPort(port_name, 115200, Parity.None, 8, StopBits.One);
                 port.WriteTimeout = 1000;
                 port.ReadTimeout = 2000;
                 port.Open();
-                Btn_All_Enable();
+                Btn_connectDevice_Disable();
                 //MessageBox.Show("Port Connected");
             }
             catch (Exception ex)
@@ -224,6 +261,7 @@ namespace STM32Bootloading
                 }
                 else
                 {
+                    Btn_All_Disable();
                     MessageBox.Show("Port is already disconnected");
                 }
 
@@ -247,16 +285,28 @@ namespace STM32Bootloading
 
                 byte[] dataByte = new byte[1];
                 //--- wait
-                ClearBuffer();
+                //ClearBuffer();
                 System.Threading.Thread.Sleep(100);
                 dataByte[0] = 0x7F;
                 port.Write(dataByte, 0, 1);               
-                System.Threading.Thread.Sleep(1);
+               // System.Threading.Thread.Sleep(1);
                 byte[] rx_buff = new byte[1];                
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
                 {
-                    //So you understand the communication is good and you can continue with other tasks
+                    Btn_Download_Memory.Enabled = false;
+                    Btn_Get_Settings.Enabled = true;
+                    Btn_Set_Settings.Enabled = false;
+                    Btn_Erase_Memory.Enabled = false;
+                    Connect_Device.Enabled = false; 
+                    Btn_Disconnect.Enabled = true;
+                    Btn_Connect.Enabled = false;
+                    Btn_BootMode.Enabled = false;
+                    button1.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    //Btn_All_Enable();         //So you understand the communication is good and you can continue with other tasks
                 }
             }
             catch (Exception ex)
@@ -273,5 +323,96 @@ namespace STM32Bootloading
             Combo_PortList.DataSource = serialPorts;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Combo_PortList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Memory_Bar_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Hexadecimal numbers
+            int hexNumber1 = 0xA1;
+            int hexNumber2 = 0xFF;
+            int hexNumber3 = 0x2B;
+
+            // Display hexadecimal numbers in labels
+            label1.Text = $"Hex Number 1: 0x{hexNumber1:X}";
+            label2.Text = $"Hex Number 2: 0x{hexNumber2:X}";
+            label3.Text = $"Hex Number 3: 0x{hexNumber3:X}";
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            byte[] dataByte = new byte[1];
+            //ClearBuffer();
+            System.Threading.Thread.Sleep(100);
+            dataByte[0] = 0x44;
+            port.Write(dataByte, 0, 1);
+            dataByte[0] = 0xBB;
+            port.Write(dataByte, 0, 1);
+            // System.Threading.Thread.Sleep(1);
+            byte[] rx_buff = new byte[1];
+            rx_buff = ReadPortBytes(1);
+            if (rx_buff[0] == 0x79)
+            {
+                //byte[] dataByte1 = new byte[1];
+                System.Threading.Thread.Sleep(100);
+                dataByte[0] = 0xFF;
+                port.Write(dataByte, 0, 1);
+                dataByte[0] = 0xFE;
+                port.Write(dataByte, 0, 1);
+                dataByte[0] = 0x01;
+                port.Write(dataByte, 0, 1);
+                rx_buff = ReadPortBytes(1);
+                if (rx_buff[0] == 0x79) ;
+                {
+                    Btn_Download_Memory.Enabled = false;
+                    Btn_Get_Settings.Enabled = false;
+                    Btn_Set_Settings.Enabled = false;
+                    Btn_Erase_Memory.Enabled = false;
+                    Connect_Device.Enabled = true;
+                    Btn_Disconnect.Enabled = true;
+                    Btn_Connect.Enabled = false;
+                    Btn_BootMode.Enabled = false;
+                    button1.Enabled = false;
+                    button2.Enabled = false;
+                    button3.Enabled = false;
+                    button4.Enabled = false;
+                    MessageBox.Show("Successful Erase Bank1"); 
+                   // Btn_connectDevice_Disable();
+                }
+               
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
+
 }
