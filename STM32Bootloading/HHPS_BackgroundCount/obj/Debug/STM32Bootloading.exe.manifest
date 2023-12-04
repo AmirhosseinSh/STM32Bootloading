@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="STM32Bootloading.exe" size="25600">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="STM32Bootloading.exe" size="28160">
       <assemblyIdentity name="STM32Bootloading" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>opvO+dJ6xpdmIe8/HA/mRbzrHPJ4VxDWaH2bneAxdP0=</dsig:DigestValue>
+        <dsig:DigestValue>niq+BrMRh/mqVLGnRoNBS/Yh3uyhV7LKZTwNIgqtnG4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
