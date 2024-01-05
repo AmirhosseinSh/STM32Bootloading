@@ -73,7 +73,7 @@
             // Btn_Connect
             // 
             this.Btn_Connect.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Connect.Location = new System.Drawing.Point(41, 45);
+            this.Btn_Connect.Location = new System.Drawing.Point(32, 45);
             this.Btn_Connect.Margin = new System.Windows.Forms.Padding(4);
             this.Btn_Connect.Name = "Btn_Connect";
             this.Btn_Connect.Size = new System.Drawing.Size(103, 28);
@@ -86,7 +86,7 @@
             // 
             this.Btn_Disconnect.Enabled = false;
             this.Btn_Disconnect.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Disconnect.Location = new System.Drawing.Point(191, 45);
+            this.Btn_Disconnect.Location = new System.Drawing.Point(144, 45);
             this.Btn_Disconnect.Margin = new System.Windows.Forms.Padding(4);
             this.Btn_Disconnect.Name = "Btn_Disconnect";
             this.Btn_Disconnect.Size = new System.Drawing.Size(103, 28);
@@ -151,7 +151,7 @@
             "Medium (1.5)",
             "Long (2)",
             "Very Long (3)"});
-            this.Combo_PortList.Location = new System.Drawing.Point(191, 13);
+            this.Combo_PortList.Location = new System.Drawing.Point(185, 13);
             this.Combo_PortList.Margin = new System.Windows.Forms.Padding(4);
             this.Combo_PortList.Name = "Combo_PortList";
             this.Combo_PortList.Size = new System.Drawing.Size(103, 24);
@@ -259,6 +259,7 @@
             // button5
             // 
             this.button5.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.button5.Enabled = false;
             this.button5.ForeColor = System.Drawing.Color.Brown;
             this.button5.Location = new System.Drawing.Point(282, 269);
             this.button5.Name = "button5";
@@ -300,18 +301,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(481, 48);
+            this.textBox1.Location = new System.Drawing.Point(472, 84);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(202, 207);
+            this.textBox1.Size = new System.Drawing.Size(183, 207);
             this.textBox1.TabIndex = 78;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(478, 29);
+            this.label1.Location = new System.Drawing.Point(478, 64);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 16);
             this.label1.TabIndex = 79;
@@ -320,18 +321,18 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(689, 48);
+            this.textBox2.Location = new System.Drawing.Point(697, 86);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(187, 207);
+            this.textBox2.Size = new System.Drawing.Size(179, 207);
             this.textBox2.TabIndex = 80;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(686, 29);
+            this.label3.Location = new System.Drawing.Point(703, 64);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 16);
             this.label3.TabIndex = 81;

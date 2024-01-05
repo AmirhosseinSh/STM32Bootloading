@@ -117,6 +117,11 @@ namespace STM32Bootloading
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
+            button5.Enabled = false;
+            button6.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
+            button9.Enabled = false;
         }
 
         private void Btn_connectDevice_Disable()
@@ -134,6 +139,12 @@ namespace STM32Bootloading
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
+            button5.Enabled = false;
+            button6.Enabled = false;
+            button7.Enabled = false;
+            button8.Enabled = false;
+            button9.Enabled = false;
+
         }
 
 
@@ -257,6 +268,7 @@ namespace STM32Bootloading
                     button2.Enabled = true;
                     button3.Enabled = true;
                     button4.Enabled = false;
+                    button5.Enabled = true;
                     button6.Enabled = true;
                     button7.Enabled = false;
                     button8.Enabled = false;
@@ -290,7 +302,7 @@ namespace STM32Bootloading
         
 
 
-        int Num_frim = 3;
+        int Num_frim = 1;
         private void button1_Click(object sender, EventArgs e)
         {
             
@@ -331,16 +343,17 @@ namespace STM32Bootloading
                     rx_buff9 = ReadPortBytes(1);
                     byte[] rx_buff1 = new byte[256];
                     rx_buff1 = ReadPortBytes(256);
-                    string memoryContent = "Read Memory Bank1:\n";
+                    string memoryContent = "";// "Read Memory Bank1:\n";
                     // for (int i = 0  ; i < rx_buff1.Length ; i++)
                     for (int i = 0; i < 256; i++)
                     {
-                        memoryContent += $" {rx_buff1[i]:X2}";
+                        memoryContent += $"{rx_buff1[i]:X2} ";
                         // memoryContent += $" rx_buff1[{i}] = 0x{rx_buff1[i]:X2}";
 
-                    }
-
-                    MessageBox.Show(memoryContent, "Memory Content", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }                    
+                    textBox1.Text = memoryContent;
+                    // }
+                   // MessageBox.Show(memoryContent, "Memory Content", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // MessageBox.Show($"Read Memory: \n{rx_buff1[0]:x2}\n{rx_buff1[1]:x2}\n{rx_buff1[2]:x2}\n{rx_buff1[3]:x2}\n{rx_buff1[4]:x2}\n" +
                     // $"{rx_buff1[5]:x2}\n{rx_buff1[6]:x2}\n{rx_buff1[7]:x2}\n{rx_buff1[8]:x2}\n{rx_buff1[9]:x2}\n{rx_buff1[10]:x2}\n{rx_buff1[11]:x2}\n" +
@@ -667,15 +680,16 @@ namespace STM32Bootloading
                     rx_buff9 = ReadPortBytes(1);
                     byte[] rx_buff1 = new byte[256];
                     rx_buff1 = ReadPortBytes(256);
-                    string memoryContent = "Read Memory Bank2:\n";
+                    string memoryContent = "";// Read Memory Bank2:\n";
                     // for (int i = 0  ; i < rx_buff1.Length ; i++)
                     for (int i = 0; i < 256; i++)
                     {
-                        memoryContent += $" {rx_buff1[i]:X2}";
+                        memoryContent += $"{rx_buff1[i]:X2} ";
                         // memoryContent += $" rx_buff1[{i}] = 0x{rx_buff1[i]:X2}";
 
                     }
-                    MessageBox.Show(memoryContent, "Memory Content", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    textBox2.Text = memoryContent;
+                    //MessageBox.Show(memoryContent, "Memory Content", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
                 }
