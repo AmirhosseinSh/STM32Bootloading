@@ -541,17 +541,18 @@ namespace STM32Bootloading
         {
 
         }
-
+/*
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
 
         }
-
+*/
+/*
         private void resultsTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
-
+*/
         private void txt_DevVersion_TextChanged(object sender, EventArgs e)
         {
 
