@@ -546,12 +546,12 @@ namespace STM32Bootloading
         {
 
         }
-/*
+
         private void resultsTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }
-*/
+
         private void txt_DevVersion_TextChanged(object sender, EventArgs e)
         {
 
