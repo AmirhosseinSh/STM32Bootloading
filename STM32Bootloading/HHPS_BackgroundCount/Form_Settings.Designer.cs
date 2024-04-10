@@ -59,6 +59,7 @@
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // Btn_Get_Settings
@@ -67,10 +68,10 @@
             this.Btn_Get_Settings.Enabled = false;
             this.Btn_Get_Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_Get_Settings.ForeColor = System.Drawing.Color.SteelBlue;
-            this.Btn_Get_Settings.Location = new System.Drawing.Point(502, 11);
+            this.Btn_Get_Settings.Location = new System.Drawing.Point(495, 289);
             this.Btn_Get_Settings.Margin = new System.Windows.Forms.Padding(4);
             this.Btn_Get_Settings.Name = "Btn_Get_Settings";
-            this.Btn_Get_Settings.Size = new System.Drawing.Size(181, 40);
+            this.Btn_Get_Settings.Size = new System.Drawing.Size(156, 40);
             this.Btn_Get_Settings.TabIndex = 1;
             this.Btn_Get_Settings.Text = "Get Command";
             this.Btn_Get_Settings.UseVisualStyleBackColor = false;
@@ -308,18 +309,18 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(493, 84);
+            this.textBox1.Location = new System.Drawing.Point(486, 30);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(183, 207);
+            this.textBox1.Size = new System.Drawing.Size(183, 187);
             this.textBox1.TabIndex = 78;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(499, 64);
+            this.label1.Location = new System.Drawing.Point(492, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 16);
             this.label1.TabIndex = 79;
@@ -328,18 +329,18 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(702, 86);
+            this.textBox2.Location = new System.Drawing.Point(693, 32);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(179, 207);
+            this.textBox2.Size = new System.Drawing.Size(179, 180);
             this.textBox2.TabIndex = 80;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(708, 64);
+            this.label3.Location = new System.Drawing.Point(708, 10);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 16);
             this.label3.TabIndex = 81;
@@ -417,7 +418,7 @@
             this.button11.Enabled = false;
             this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button11.ForeColor = System.Drawing.Color.DarkCyan;
-            this.button11.Location = new System.Drawing.Point(493, 304);
+            this.button11.Location = new System.Drawing.Point(495, 219);
             this.button11.Margin = new System.Windows.Forms.Padding(4);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(159, 62);
@@ -432,7 +433,7 @@
             this.button12.Enabled = false;
             this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button12.ForeColor = System.Drawing.Color.DarkCyan;
-            this.button12.Location = new System.Drawing.Point(702, 304);
+            this.button12.Location = new System.Drawing.Point(693, 219);
             this.button12.Margin = new System.Windows.Forms.Padding(4);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(167, 62);
@@ -447,20 +448,30 @@
             this.button13.Enabled = false;
             this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button13.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button13.Location = new System.Drawing.Point(702, 14);
+            this.button13.Location = new System.Drawing.Point(693, 289);
             this.button13.Margin = new System.Windows.Forms.Padding(4);
             this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(181, 40);
+            this.button13.Size = new System.Drawing.Size(167, 40);
             this.button13.TabIndex = 89;
             this.button13.Text = "Hex to Bin";
             this.button13.UseVisualStyleBackColor = false;
             this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(682, 336);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(190, 40);
+            this.textBox3.TabIndex = 90;
+            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged_2);
             // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(901, 385);
+            this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
@@ -533,5 +544,6 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }

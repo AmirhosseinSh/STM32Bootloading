@@ -29,7 +29,7 @@ namespace STM32Bootloading
         public Form_Settings()
         {
             InitializeComponent();
-            // const int OneFrim = 256;
+           
         }
 
         private void Form_Settings_Load(object sender, EventArgs e)
@@ -38,6 +38,7 @@ namespace STM32Bootloading
             {
                 List<string> serialPorts = SerialPort.GetPortNames().ToList();
                 Combo_PortList.DataSource = serialPorts;
+                button13.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -84,6 +85,7 @@ namespace STM32Bootloading
             button7.Enabled = false;
             button8.Enabled = false;
             button9.Enabled = false;
+            button13.Enabled = true;
         }
 
         private void Btn_connectDevice_Disable()
@@ -102,6 +104,7 @@ namespace STM32Bootloading
             button8.Enabled = false;
             button9.Enabled = false;
             button10.Enabled = true;
+            button13.Enabled = true;
         }
 
 
@@ -115,6 +118,7 @@ namespace STM32Bootloading
             button2.Enabled = true;
             button3.Enabled = true;
             button4.Enabled = true;
+            button13.Enabled = true;
         }
              
 
@@ -149,6 +153,7 @@ namespace STM32Bootloading
                 port.ReadTimeout = 2000;
                 port.Open();
                 Btn_connectDevice_Disable();
+                
                 //MessageBox.Show("Port Connected");
             }
             catch (Exception ex)
@@ -171,6 +176,7 @@ namespace STM32Bootloading
                 {
                     port.Close();
                     Btn_All_Disable();
+                    button13.Enabled = true;
                     //MessageBox.Show("Port Disconnected");
                 }
                 else
@@ -212,7 +218,8 @@ namespace STM32Bootloading
                     button7.Enabled = false;
                     button8.Enabled = false;
                     button9.Enabled = false;
-                    
+                    button13.Enabled = true;
+
                     byte[] dataByte8 = new byte[2];                    
                     //System.Threading.Thread.Sleep(100);
                     dataByte8[0] = 0x01;
@@ -680,7 +687,7 @@ namespace STM32Bootloading
                                 if (j == chunkNumber)
                                 {
                                     Read1();
-                                    MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                   // MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     //   port.Write(dataToSend, 0, dataToSend.Length);
                                 }
                             }
@@ -710,7 +717,7 @@ namespace STM32Bootloading
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             string filePath = filePathTextBox.Text;
-            openFileDialog1.Filter = "Bin Files|*.bin|Hex Files|*.hex|All Files|*.*";
+            openFileDialog1.Filter = "Bin Files|*.bin";//|Hex Files|*.hex|All Files|*.*
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 filePathTextBox.Text = openFileDialog1.FileName;
@@ -1113,8 +1120,7 @@ namespace STM32Bootloading
                 else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
             }
         }
-
-        private void button9_Click(object sender, EventArgs e)
+        void Verify1()
         {
             string filePath = filePathTextBox.Text;
             int numberOfBytes = GetNumberOfBytes(filePath);
@@ -1137,7 +1143,7 @@ namespace STM32Bootloading
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
                 {
-                    int number = 0x08100000 + (j * 0x0100);
+                    int number = 0x08000000 + (j * 0x0100);
                     byte[] dataByte1 = BitConverter.GetBytes(number);
                     port.Write(new byte[] { dataByte1[3] }, 0, 1);
                     port.Write(new byte[] { dataByte1[2] }, 0, 1);
@@ -1178,10 +1184,77 @@ namespace STM32Bootloading
 
                 }
                 else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
-
             }
         }
 
+            private void button9_Click(object sender, EventArgs e)
+            {
+                string filePath = filePathTextBox.Text;
+                int numberOfBytes = GetNumberOfBytes(filePath);
+                int NumPage = (numberOfBytes / 256) + 1;
+                //string filePath = filePathTextBox.Text;
+                for (int j = 0; j <= NumPage; j++)
+                {
+                    label5.Text = $"{(j * 100) / NumPage}%";
+                    // Read all lines from the hex file
+                    string[] lines = File.ReadAllLines(filePath);
+                    byte[] fileBytes = ReadNext256Bytes(filePath, j);
+                    byte[] dataByte = new byte[2];
+                    //System.Threading.Thread.Sleep(100);
+                    dataByte[0] = 0x11;
+                    //dataByte[1] = 0xEE;
+                    port.Write(dataByte, 0, 1);
+                    dataByte[0] = 0xEE;
+                    port.Write(dataByte, 0, 1);
+                    byte[] rx_buff = new byte[1];
+                    rx_buff = ReadPortBytes(1);
+                    if (rx_buff[0] == 0x79)
+                    {
+                        int number = 0x08100000 + (j * 0x0100);
+                        byte[] dataByte1 = BitConverter.GetBytes(number);
+                        port.Write(new byte[] { dataByte1[3] }, 0, 1);
+                        port.Write(new byte[] { dataByte1[2] }, 0, 1);
+                        port.Write(new byte[] { dataByte1[1] }, 0, 1);
+                        port.Write(new byte[] { dataByte1[0] }, 0, 1);
+                        int result = 0x00;
+                        int numAddress = 4;
+                        for (int i = 0; i < numAddress; i++)
+                        {
+                            result ^= dataByte1[i];
+                        }
+                        byte[] resultBytes = BitConverter.GetBytes(result);
+                        port.Write(resultBytes, 0, 1);
+                        rx_buff = ReadPortBytes(1);
+                        if (rx_buff[0] == 0x79)
+                        {
+                            byte[] dataByte2 = new byte[2];
+                            dataByte2[0] = 0xFF;
+                            //dataByte2[1] = 0x00;
+                            port.Write(dataByte2, 0, 1);
+                            dataByte2[0] = 0x00;
+                            port.Write(dataByte2, 0, 1);
+                        }
+                        byte[] rx_buff9 = new byte[1];
+                        rx_buff9 = ReadPortBytes(1);
+                        byte[] rx_buff1 = new byte[256];
+                        rx_buff1 = ReadPortBytes(256);
+                        if (ByteArraysEqual(fileBytes, rx_buff1) && (NumPage - 1 == j))
+                        {
+                            MessageBox.Show("Verify Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                        else if (!ByteArraysEqual(fileBytes, rx_buff1))
+                        {
+                            MessageBox.Show("Verify Fail", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            break;
+                        }
+
+                    }
+                    else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
+
+                }
+            }
+        
         private void label3_Click(object sender, EventArgs e)
         {
 
@@ -1251,6 +1324,7 @@ namespace STM32Bootloading
         {
             Erase1();
             Write1();
+            Verify1();
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -1259,6 +1333,78 @@ namespace STM32Bootloading
         }
 
         private void button13_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Hex files (*.hex)|*.hex";
+            openFileDialog.Title = "Select a .hex file";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string inputHexFile = openFileDialog.FileName;
+                textBox3.Text = inputHexFile;
+                string outputBinFile = Path.ChangeExtension(inputHexFile, ".bin");
+
+                try
+                {
+                    ConvertHexToBin(inputHexFile, outputBinFile);
+                    MessageBox.Show("Conversion completed successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error occurred during conversion: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ConvertHexToBin(string inputHexFile, string outputBinFile)
+        {
+            using (StreamReader reader = new StreamReader(inputHexFile))
+            using (BinaryWriter writer = new BinaryWriter(File.Create(outputBinFile)))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    if (line.StartsWith(":"))
+                    {
+                        byte[] data = ParseHexRecord(line);
+                        if (data != null)
+                            writer.Write(data);
+                    }
+                }
+            }
+        }
+
+        private byte[] ParseHexRecord(string hexRecord)
+        {
+            hexRecord = hexRecord.Trim();
+            if (hexRecord.Length < 11 || hexRecord[0] != ':')
+                throw new FormatException("Invalid Intel HEX record");
+
+            int byteCount = Convert.ToInt32(hexRecord.Substring(1, 2), 16);
+            int address = Convert.ToInt32(hexRecord.Substring(3, 4), 16);
+            int recordType = Convert.ToInt32(hexRecord.Substring(7, 2), 16);
+
+            if (byteCount * 2 + 11 != hexRecord.Length)
+                throw new FormatException("Invalid Intel HEX record");
+
+            if (recordType != 0)
+            {
+                Console.WriteLine($"Unsupported record type: {recordType}");
+                return null;
+            }
+
+            byte[] data = new byte[byteCount];
+            for (int i = 0; i < byteCount; i++)
+            {
+                int dataIndex = 9 + i * 2;
+                data[i] = Convert.ToByte(hexRecord.Substring(dataIndex, 2), 16);
+            }
+
+            return data;
+        }
+
+
+        private void textBox3_TextChanged_2(object sender, EventArgs e)
         {
 
         }
