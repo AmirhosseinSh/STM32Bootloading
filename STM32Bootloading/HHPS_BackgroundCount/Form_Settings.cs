@@ -318,59 +318,126 @@ namespace STM32Bootloading
             //}
 
         //}
-        private void Deviceconnct1()
+        private void MasterConnct1()
         {
-            byte[] dataByte = new byte[1];
-            System.Threading.Thread.Sleep(1);
-            dataByte[0] = 0x7F;
-            port.Write(dataByte, 0, 1);
-            // System.Threading.Thread.Sleep(1);
-            byte[] rx_buff = new byte[1];
-            rx_buff = ReadPortBytes(1);
-            if (rx_buff[0] == 0x79)
+            try
             {
-                Btn_Get_Settings.Enabled = true;
-         //       Connect_Device.Enabled = false;
-                Btn_Disconnect.Enabled = true;
-                Btn_Connect.Enabled = false;
-                button1.Enabled = true;
-               // button2.Enabled = true;
-                button3.Enabled = true;
-                button4.Enabled = false;
-                button5.Enabled = true;
-               // button6.Enabled = true;
-               // button7.Enabled = false;
-                button8.Enabled = false;
-                button9.Enabled = false;
-                button13.Enabled = true;
-                button14.Enabled = false;
-                button16.Enabled = false;
+                byte[] dataByte = new byte[1];
+                System.Threading.Thread.Sleep(1);
+                dataByte[0] = 0x7F;
+                port.Write(dataByte, 0, 1);
+                // System.Threading.Thread.Sleep(1);
+                byte[] rx_buff = new byte[1];
+                rx_buff = ReadPortBytes(1);
+                if (rx_buff[0] == 0x79)
+                {
+                    Btn_Get_Settings.Enabled = true;
+                    // Connect_Device.Enabled = false;
+                    Btn_Disconnect.Enabled = true;
+                    Btn_Connect.Enabled = false;
+                    button1.Enabled = true;                    
+                    button3.Enabled = true;
+                    button4.Enabled = false;
+                    button5.Enabled = true;                   
+                    // button7.Enabled = false;
+                    button8.Enabled = false;
+                    button9.Enabled = false;
+                    button13.Enabled = true;
+                    button14.Enabled = false;                    
+                    button16.Enabled = false;
+                    button2.Enabled = true;
+                    button6.Enabled = true;
+                    byte[] dataByte8 = new byte[2];
+                    //System.Threading.Thread.Sleep(100);
+                    dataByte8[0] = 0x01;
+                    // dataByte8[1] = 0xFE;
+                    port.Write(dataByte8, 0, 1);
+                    //System.Threading.Thread.Sleep(1);
+                    dataByte8[0] = 0xFE;
+                    port.Write(dataByte8, 0, 1);
+                    byte[] rx_buff1 = new byte[5];
+                    rx_buff1 = ReadPortBytes(5);
+                    txt_DevVersion.Text = rx_buff1[1].ToString("x");
+                    // byte[] dataByte8 = new byte[2];
+                    //System.Threading.Thread.Sleep(1);
+                    dataByte8[0] = 0x02;
+                    // dataByte8[2] = 0xFD;
+                    port.Write(dataByte8, 0, 1);
+                    // System.Threading.Thread.Sleep(100);
+                    dataByte8[0] = 0xFD;
+                    port.Write(dataByte8, 0, 1);
+                    //byte[] rx_buff1 = new byte[5];
+                    rx_buff1 = ReadPortBytes(5);
+                    Numeric_Erros.Text = rx_buff1[3].ToString("x");
 
-                byte[] dataByte8 = new byte[2];
-                //System.Threading.Thread.Sleep(100);
-                dataByte8[0] = 0x01;
-                // dataByte8[1] = 0xFE;
-                port.Write(dataByte8, 0, 1);
-                //System.Threading.Thread.Sleep(1);
-                dataByte8[0] = 0xFE;
-                port.Write(dataByte8, 0, 1);
-                byte[] rx_buff1 = new byte[5];
-                rx_buff1 = ReadPortBytes(5);
-                txt_DevVersion.Text = rx_buff1[1].ToString("x");
-                // byte[] dataByte8 = new byte[2];
-                //System.Threading.Thread.Sleep(1);
-                dataByte8[0] = 0x02;
-                // dataByte8[2] = 0xFD;
-                port.Write(dataByte8, 0, 1);
-                // System.Threading.Thread.Sleep(100);
-                dataByte8[0] = 0xFD;
-                port.Write(dataByte8, 0, 1);
-                //byte[] rx_buff1 = new byte[5];
-                rx_buff1 = ReadPortBytes(5);
-                Numeric_Erros.Text = rx_buff1[3].ToString("x");
-
+                }
+                else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
             }
-            else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
+            catch
+            {
+                MessageBox.Show($"0x1F");
+            }
+        }
+
+        private void Managerconnct()
+        {
+            try
+            {
+                byte[] dataByte = new byte[1];
+                System.Threading.Thread.Sleep(1);
+                dataByte[0] = 0x7F;
+                port.Write(dataByte, 0, 1);
+                System.Threading.Thread.Sleep(100);
+                byte[] rx_buff = new byte[1];
+                rx_buff = ReadPortBytes(1);
+                if (rx_buff[0] == 0x79)
+                {
+                    Btn_Get_Settings.Enabled = true;
+                    // Connect_Device.Enabled = false;
+                    Btn_Disconnect.Enabled = true;
+                    Btn_Connect.Enabled = false;
+                    button1.Enabled = true;
+                    // button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = false;
+                    button5.Enabled = true;
+                    // button6.Enabled = true;
+                    // button7.Enabled = false;
+                    button8.Enabled = false;
+                    button9.Enabled = false;
+                    button13.Enabled = true;
+                    button14.Enabled = false;
+                    button16.Enabled = false;
+                    byte[] dataByte8 = new byte[2];
+                    //System.Threading.Thread.Sleep(100);
+                    dataByte8[0] = 0x01;
+                    // dataByte8[1] = 0xFE;
+                    port.Write(dataByte8, 0, 1);
+                    //System.Threading.Thread.Sleep(1);
+                    dataByte8[0] = 0xFE;
+                    port.Write(dataByte8, 0, 1);
+                    byte[] rx_buff1 = new byte[5];
+                    rx_buff1 = ReadPortBytes(5);
+                    txt_DevVersion.Text = rx_buff1[1].ToString("x");
+                    // byte[] dataByte8 = new byte[2];
+                    //System.Threading.Thread.Sleep(1);
+                    dataByte8[0] = 0x02;
+                    // dataByte8[2] = 0xFD;
+                    port.Write(dataByte8, 0, 1);
+                    // System.Threading.Thread.Sleep(100);
+                    dataByte8[0] = 0xFD;
+                    port.Write(dataByte8, 0, 1);
+                    //byte[] rx_buff1 = new byte[5];
+                    rx_buff1 = ReadPortBytes(5);
+                    Numeric_Erros.Text = rx_buff1[3].ToString("x");
+
+                }
+                else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
+            }
+            catch
+            {
+                MessageBox.Show($"0x1F");
+            }
         }
         private void Read1()
         {
@@ -622,16 +689,12 @@ namespace STM32Bootloading
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
                 {
-                   // Read1();
+                    Read1();
                    // MessageBox.Show("Successful Erase Bank1", "Successful Erase Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else if (rx_buff[0] == 0x1f) { MessageBox.Show("Not Erase Bank1"); }
-
-
-
-
-
+            else if (rx_buff[0] == 0x1f) { MessageBox.Show("Not Erase Bank1"); 
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -711,17 +774,9 @@ namespace STM32Bootloading
         private void button4_Click(object sender, EventArgs e)
         {
             string filePath = filePathTextBox.Text;
-            if (flag_manager == 0)
-            {
-                WriteMaster_Disable();
-            }
-            else
-            {
-                WriteManger_Disable();
-            }
 
             try
-            {                
+            {
                 // Read all lines from the hex file
                 string[] lines = File.ReadAllLines(filePath);
                 // Read the first 256 bytes from the hex file
@@ -729,9 +784,9 @@ namespace STM32Bootloading
                 int numberOfBytes = GetNumberOfBytes(filePath);
                 int j = (numberOfBytes / 256) + 1;
 
-                for (int chunkNumber = 0; chunkNumber <= j ; chunkNumber++)
+                for (int chunkNumber = 0; chunkNumber <= j; chunkNumber++)
                 {
-                    label4.Text = $"{((chunkNumber) * 100) / j}%";              
+                    label4.Text = $"{((chunkNumber) * 100) / j}%";
                     byte[] fileBytes = ReadNext256Bytes(filePath, chunkNumber);
                     byte xorResult = CalculateXOR(fileBytes);
                     // Display the result
@@ -761,56 +816,48 @@ namespace STM32Bootloading
                             result ^= dataByte1[i];
                         }
                         byte[] resultBytes = BitConverter.GetBytes(result);
-                        port.Write(resultBytes, 0, 1);                        
+                        port.Write(resultBytes, 0, 1);
                         rx_buff = ReadPortBytes(1);
                         if (rx_buff[0] == 0x79)
                         {
                             byte[] dataByte5 = new byte[1];
                             byte[] dataByte6 = new byte[OneFrim];
                             byte[] dataByte7 = new byte[1];
-                           // System.Threading.Thread.Sleep(100);
+                            // System.Threading.Thread.Sleep(100);
                             dataByte5[0] = 0xFF;
                             dataByte7[0] = xorResult;
                             port.Write(dataByte5, 0, 1);
                             foreach (byte b in fileBytes)
-                            {                             
-                                port.Write(new byte[] { b }, 0, 1); // Send one byte                                                                    
+                            {
+                                port.Write(new byte[] { b }, 0, 1); // Send one byte
+                                                                    // Thread.Sleep(1); 
                             }
                             //port.Write(fileBytes, 0, OneFrim);
                             port.Write(dataByte7, 0, 1);
-                            
                             rx_buff = ReadPortBytes(1);
                             if (rx_buff[0] == 0x79)
                             {
                                 if (j == chunkNumber)
                                 {
                                     Read1();
-                                    MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                     //   port.Write(dataToSend, 0, dataToSend.Length);
+                                     MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    //   port.Write(dataToSend, 0, dataToSend.Length);
                                 }
                             }
                             else //if (rx_buff[0] == 0x1f)
                             {
                                 MessageBox.Show($"Not program - NAK {rx_buff[0]}");
                             }
-                        }                       
+                        }
                     }
                 }
-                if (flag_manager == 0)
-                {
-                    WriteMaster_Enable();
-                }
-                else
-                {
-                    WriteManger_Enable();
-                    button14.Enabled = true;
-                }
-               
+                button14.Enabled = true;
             }
             catch (Exception ex)
             {
                 //  resultsTextBox.AppendText($"An error occurred: {ex.Message}\r\n");
             }
+
         }
 
         void Write1()
@@ -893,6 +940,7 @@ namespace STM32Bootloading
                         }
                     }
                 }
+                button14.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -1155,7 +1203,7 @@ namespace STM32Bootloading
         private void button7_Click(object sender, EventArgs e)
         {
             string filePath = filePathTextBox.Text;
-            WriteMaster_Disable();
+           // WriteMaster_Disable();
 
             try
             {
@@ -1235,7 +1283,8 @@ namespace STM32Bootloading
                         }
                     }
                 }
-                WriteMaster_Disable();
+                button16.Enabled = true;
+               // WriteMaster_Disable();
             }
             catch (Exception ex)
             {
@@ -1390,7 +1439,7 @@ namespace STM32Bootloading
                     rx_buff1 = ReadPortBytes(256);
                     if (ByteArraysEqual(fileBytes, rx_buff1) && (NumPage - 1 == j))
                     {
-                        MessageBox.Show("Verify Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Program Complete", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     else if (!ByteArraysEqual(fileBytes, rx_buff1))
@@ -1497,19 +1546,19 @@ namespace STM32Bootloading
                 rx_buff1 = ReadPortBytes(1);
                 if (rx_buff1[0] == 0x6f)
                 { 
-                button10.Enabled = false;
-                button15.Enabled = false;
-                System.Threading.Thread.Sleep(4000);                    
-                button16.Enabled = true;
-                button2.Enabled = true;
-                button6.Enabled = true;
+                  button10.Enabled = false;
+                  button15.Enabled = false;
+                  System.Threading.Thread.Sleep(4000);
+                    //button16.Enabled = true;
+                    //button2.Enabled = true;
+                    //button6.Enabled = true;
+                    MasterConnct1();
                 }
                 else
                 {
                     MessageBox.Show($"Master CPU not answer");
                 }
-
-                Deviceconnct1();
+                
             }
             catch (Exception ex)
             {
@@ -1693,7 +1742,7 @@ namespace STM32Bootloading
               //  if (rx_buff1[0] == 0x6f)
                // {
                button10.Enabled = false;
-               System.Threading.Thread.Sleep(3000);         
+               System.Threading.Thread.Sleep(4000);         
                 button15.Enabled = false;
                 button2.Enabled = false; 
                 button6.Enabled = false;
@@ -1715,7 +1764,8 @@ namespace STM32Bootloading
                 // {
                 //    MessageBox.Show($"Master CPU not answer");
                 // }
-                Deviceconnct1();
+                
+                Managerconnct();
             }
             catch (Exception ex)
             {
@@ -1763,6 +1813,8 @@ namespace STM32Bootloading
             }
 
         }
+
+       
     }
 }
     
