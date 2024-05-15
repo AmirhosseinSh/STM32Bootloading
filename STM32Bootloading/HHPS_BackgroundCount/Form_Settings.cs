@@ -167,9 +167,11 @@ namespace STM32Bootloading
             button8.Enabled = false;
             button9.Enabled = false;
             button10.Enabled = true;
+            button11.Enabled = false;
             button13.Enabled = true;
             button15.Enabled = true;
             button14.Enabled = false;
+            button16.Enabled = false;
         }
 
 
@@ -343,8 +345,8 @@ namespace STM32Bootloading
                     button8.Enabled = false;
                     button9.Enabled = false;
                     button13.Enabled = true;
-                    button14.Enabled = false;                    
-                    button16.Enabled = false;
+                    button14.Enabled = true;
+                    button16.Enabled = true;
                     button2.Enabled = true;
                     button6.Enabled = true;
                     byte[] dataByte8 = new byte[2];
@@ -375,7 +377,7 @@ namespace STM32Bootloading
             }
             catch
             {
-                MessageBox.Show($"0x1F");
+                MessageBox.Show($"Nothing");
             }
         }
 
@@ -1534,31 +1536,41 @@ namespace STM32Bootloading
                 System.Threading.Thread.Sleep(1);
                 dataByte[0] = 0x42;
                 port.Write(dataByte, 0, 1);
-                dataByte[0] = 0x6f;
+                dataByte[0] = 0x6F;
                 port.Write(dataByte, 0, 1);
-                dataByte[0] = 0x6f;
+                dataByte[0] = 0x6F;
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0x74;
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0x74;
                 System.Threading.Thread.Sleep(1);
-                byte[] rx_buff1 = new byte[1]; 
+                byte[] rx_buff1 = new byte[1];
+                
                 rx_buff1 = ReadPortBytes(1);
-                if (rx_buff1[0] == 0x6f)
-                { 
+                
+                if (rx_buff1[0] == 0x6f )
+                {
                   button10.Enabled = false;
                   button15.Enabled = false;
-                  System.Threading.Thread.Sleep(4000);
-                    //button16.Enabled = true;
-                    //button2.Enabled = true;
-                    //button6.Enabled = true;
+                  System.Threading.Thread.Sleep(4000);                   
                     MasterConnct1();
                 }
-                else
+                 else if (rx_buff1[0] == 0x00)
                 {
-                    MessageBox.Show($"Master CPU not answer");
+                    rx_buff1 = ReadPortBytes(1);
+                    if (rx_buff1[0] == 0x6f)
+                    {                        
+                        button10.Enabled = false;
+                        button15.Enabled = false;
+                        System.Threading.Thread.Sleep(4000);
+                        MasterConnct1();
+                    }
+                    else 
+                    {
+                        MessageBox.Show($"Master CPU not answer");
+                    }
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -1711,13 +1723,14 @@ namespace STM32Bootloading
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
                 {
+                    Btn_connectDevice_Disable();
                     MessageBox.Show("Reset Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     MessageBox.Show("Reset Fail", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                }
+                }          
 
         }
         int flag_manager = 0;
@@ -1804,6 +1817,7 @@ namespace STM32Bootloading
             rx_buff = ReadPortBytes(1);
             if (rx_buff[0] == 0x79)
             {
+                Btn_connectDevice_Disable();
                 MessageBox.Show("Reset Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
