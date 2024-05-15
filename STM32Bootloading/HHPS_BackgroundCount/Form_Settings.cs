@@ -1,20 +1,20 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using STM32Bootloading.Helpers;
+using STM32Bootloading.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
+using System.IO.Ports;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO.Ports;
-using STM32Bootloading.Helpers;
-using STM32Bootloading.Models;
-using Newtonsoft.Json;
-using System.IO;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Security.Cryptography;
-using System.Threading;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace STM32Bootloading
@@ -99,8 +99,8 @@ namespace STM32Bootloading
             button8.Enabled = false;
             button11.Enabled = false;
             button14.Enabled = false;
-            button10.Enabled = false;
-            button15.Enabled = false;
+            BootMaster.Enabled = false;
+            BootManager.Enabled = false;
             button9.Enabled = false;
             button6.Enabled = false;
             button7.Enabled = false;
@@ -118,8 +118,8 @@ namespace STM32Bootloading
             button8.Enabled = true;
             button11.Enabled = true;
             button14.Enabled = true;
-            button10.Enabled = true;
-            button15.Enabled = true;
+            BootMaster.Enabled = true;
+            BootManager.Enabled = true;
             button9.Enabled = true;
             button6.Enabled = true;
             button7.Enabled = true;
@@ -136,8 +136,8 @@ namespace STM32Bootloading
             button8.Enabled = false;           
             button11.Enabled = false;
             button14.Enabled = false;
-            button10.Enabled = false;
-            button15.Enabled = false;
+            BootMaster.Enabled = false;
+            BootManager.Enabled = false;
             
         }
 
@@ -166,10 +166,10 @@ namespace STM32Bootloading
             button7.Enabled = false;
             button8.Enabled = false;
             button9.Enabled = false;
-            button10.Enabled = true;
+            BootMaster.Enabled = true;
             button11.Enabled = false;
             button13.Enabled = true;
-            button15.Enabled = true;
+            BootManager.Enabled = true;
             button14.Enabled = false;
             button16.Enabled = false;
         }
@@ -1528,44 +1528,47 @@ namespace STM32Bootloading
 
         }
 
-        private void button10_Click(object sender, EventArgs e)
+       
+        private void BootMaster_Click(object sender, EventArgs e)
         {
             try
             {
-                byte[] dataByte = new byte[1];
-                System.Threading.Thread.Sleep(1);
-                dataByte[0] = 0x42;
-                port.Write(dataByte, 0, 1);
-                dataByte[0] = 0x6F;
-                port.Write(dataByte, 0, 1);
-                dataByte[0] = 0x6F;
-                port.Write(dataByte, 0, 1);
-                dataByte[0] = 0x74;
-                port.Write(dataByte, 0, 1);
-                dataByte[0] = 0x74;
+                //byte[] dataByte = new byte[1];
+                //System.Threading.Thread.Sleep(1);
+                //dataByte[0] = (byte)'B';
+                //port.Write(dataByte, 0, 1);
+                //dataByte[0] = 0x6F;
+                //port.Write(dataByte, 0, 1);
+                //dataByte[0] = 0x6F;
+                //port.Write(dataByte, 0, 1);
+                //dataByte[0] = 0x74;
+                //port.Write(dataByte, 0, 1);
+                //dataByte[0] = 0x74;
+                string msg = "Boott";
+                port.Write(msg);
                 System.Threading.Thread.Sleep(1);
                 byte[] rx_buff1 = new byte[1];
-                
+
                 rx_buff1 = ReadPortBytes(1);
-                
-                if (rx_buff1[0] == 0x6f )
+
+                if (rx_buff1[0] == 0x6f)
                 {
-                  button10.Enabled = false;
-                  button15.Enabled = false;
-                  System.Threading.Thread.Sleep(4000);                   
+                    BootMaster.Enabled = false;
+                    BootManager.Enabled = false;
+                    System.Threading.Thread.Sleep(4000);
                     MasterConnct1();
                 }
-                 else if (rx_buff1[0] == 0x00)
+                else if (rx_buff1[0] == 0x00)
                 {
                     rx_buff1 = ReadPortBytes(1);
                     if (rx_buff1[0] == 0x6f)
-                    {                        
-                        button10.Enabled = false;
-                        button15.Enabled = false;
+                    {
+                        BootMaster.Enabled = false;
+                        BootManager.Enabled = false;
                         System.Threading.Thread.Sleep(4000);
                         MasterConnct1();
                     }
-                    else 
+                    else
                     {
                         MessageBox.Show($"Master CPU not answer");
                     }
@@ -1574,11 +1577,10 @@ namespace STM32Bootloading
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);         
-          
-            }
-         }
+                MessageBox.Show(ex.Message);
 
+            }
+        }
         private void label4_Click(object sender, EventArgs e)
         {
 
@@ -1734,7 +1736,8 @@ namespace STM32Bootloading
 
         }
         int flag_manager = 0;
-        private void button15_Click(object sender, EventArgs e)
+        
+        private void BootManager_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1749,23 +1752,23 @@ namespace STM32Bootloading
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0x6E;
                 port.Write(dataByte, 0, 1);
-               // System.Threading.Thread.Sleep(1);
-               // byte[] rx_buff1 = new byte[1];
-               // rx_buff1 = ReadPortBytes(1);
-              //  if (rx_buff1[0] == 0x6f)
-               // {
-               button10.Enabled = false;
-               System.Threading.Thread.Sleep(4000);         
-                button15.Enabled = false;
-                button2.Enabled = false; 
+                // System.Threading.Thread.Sleep(1);
+                // byte[] rx_buff1 = new byte[1];
+                // rx_buff1 = ReadPortBytes(1);
+                //  if (rx_buff1[0] == 0x6f)
+                // {
+                BootMaster.Enabled = false;
+                System.Threading.Thread.Sleep(4000);
+                BootManager.Enabled = false;
+                button2.Enabled = false;
                 button6.Enabled = false;
-                Btn_Get_Settings.Enabled = true;              
+                Btn_Get_Settings.Enabled = true;
                 Btn_Disconnect.Enabled = true;
                 Btn_Connect.Enabled = false;
-                button1.Enabled = true;                
+                button1.Enabled = true;
                 button3.Enabled = true;
                 button4.Enabled = false;
-                button5.Enabled = true;                
+                button5.Enabled = true;
                 button7.Enabled = false;
                 button8.Enabled = false;
                 button9.Enabled = false;
@@ -1777,7 +1780,7 @@ namespace STM32Bootloading
                 // {
                 //    MessageBox.Show($"Master CPU not answer");
                 // }
-                
+
                 Managerconnct();
             }
             catch (Exception ex)
@@ -1786,7 +1789,6 @@ namespace STM32Bootloading
 
             }
         }
-
         private void button16_Click(object sender, EventArgs e)
         {
             byte[] dataByte3 = new byte[1];

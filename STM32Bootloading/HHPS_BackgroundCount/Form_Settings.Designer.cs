@@ -52,7 +52,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.BootMaster = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button11 = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@
             this.button13 = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button14 = new System.Windows.Forms.Button();
-            this.button15 = new System.Windows.Forms.Button();
+            this.BootManager = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -364,20 +364,20 @@
             this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
-            // button10
+            // BootMaster
             // 
-            this.button10.BackColor = System.Drawing.SystemColors.Control;
-            this.button10.Enabled = false;
-            this.button10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button10.ForeColor = System.Drawing.Color.SeaGreen;
-            this.button10.Location = new System.Drawing.Point(67, 76);
-            this.button10.Margin = new System.Windows.Forms.Padding(4);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(180, 40);
-            this.button10.TabIndex = 84;
-            this.button10.Text = "BootMaster";
-            this.button10.UseVisualStyleBackColor = false;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.BootMaster.BackColor = System.Drawing.SystemColors.Control;
+            this.BootMaster.Enabled = false;
+            this.BootMaster.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BootMaster.ForeColor = System.Drawing.Color.SeaGreen;
+            this.BootMaster.Location = new System.Drawing.Point(67, 76);
+            this.BootMaster.Margin = new System.Windows.Forms.Padding(4);
+            this.BootMaster.Name = "BootMaster";
+            this.BootMaster.Size = new System.Drawing.Size(180, 40);
+            this.BootMaster.TabIndex = 84;
+            this.BootMaster.Text = "BootMaster";
+            this.BootMaster.UseVisualStyleBackColor = false;
+            this.BootMaster.Click += new System.EventHandler(this.BootMaster_Click);
             // 
             // label4
             // 
@@ -468,20 +468,20 @@
             this.button14.UseVisualStyleBackColor = false;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
-            // button15
+            // BootManager
             // 
-            this.button15.BackColor = System.Drawing.SystemColors.Control;
-            this.button15.Enabled = false;
-            this.button15.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button15.ForeColor = System.Drawing.Color.SeaGreen;
-            this.button15.Location = new System.Drawing.Point(268, 76);
-            this.button15.Margin = new System.Windows.Forms.Padding(4);
-            this.button15.Name = "button15";
-            this.button15.Size = new System.Drawing.Size(180, 40);
-            this.button15.TabIndex = 92;
-            this.button15.Text = "BootManager";
-            this.button15.UseVisualStyleBackColor = false;
-            this.button15.Click += new System.EventHandler(this.button15_Click);
+            this.BootManager.BackColor = System.Drawing.SystemColors.Control;
+            this.BootManager.Enabled = false;
+            this.BootManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BootManager.ForeColor = System.Drawing.Color.SeaGreen;
+            this.BootManager.Location = new System.Drawing.Point(268, 76);
+            this.BootManager.Margin = new System.Windows.Forms.Padding(4);
+            this.BootManager.Name = "BootManager";
+            this.BootManager.Size = new System.Drawing.Size(180, 40);
+            this.BootManager.TabIndex = 92;
+            this.BootManager.Text = "BootManager";
+            this.BootManager.UseVisualStyleBackColor = false;
+            this.BootManager.Click += new System.EventHandler(this.BootManager_Click);
             // 
             // button16
             // 
@@ -504,7 +504,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(901, 385);
             this.Controls.Add(this.button16);
-            this.Controls.Add(this.button15);
+            this.Controls.Add(this.BootManager);
             this.Controls.Add(this.button14);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.button13);
@@ -512,7 +512,7 @@
             this.Controls.Add(this.button11);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.button10);
+            this.Controls.Add(this.BootMaster);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.button8);
             this.Controls.Add(this.label3);
@@ -571,7 +571,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button BootMaster;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button11;
@@ -579,7 +579,7 @@
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button BootManager;
         private System.Windows.Forms.Button button16;
     }
 }
