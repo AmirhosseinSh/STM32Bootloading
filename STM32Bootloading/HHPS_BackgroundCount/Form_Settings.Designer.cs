@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Btn_Get_Settings = new System.Windows.Forms.Button();
+            this.TestMCU = new System.Windows.Forms.Button();
             this.Btn_Connect = new System.Windows.Forms.Button();
             this.Btn_Disconnect = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -37,47 +37,47 @@
             this.Combo_PortList = new System.Windows.Forms.ComboBox();
             this.Numeric_Erros = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.ReadBank1 = new System.Windows.Forms.Button();
+            this.erasebank2 = new System.Windows.Forms.Button();
+            this.eraseban1 = new System.Windows.Forms.Button();
+            this.writebank1 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.filePathTextBox = new System.Windows.Forms.TextBox();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.ReadFile = new System.Windows.Forms.Button();
+            this.ReadBank2 = new System.Windows.Forms.Button();
+            this.writebank2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button8 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.VerifyBank1 = new System.Windows.Forms.Button();
+            this.VerifyBank2 = new System.Windows.Forms.Button();
             this.BootMaster = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.button11 = new System.Windows.Forms.Button();
+            this.AutoProgramBank = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
+            this.HextoBin = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.button14 = new System.Windows.Forms.Button();
+            this.excutebank1 = new System.Windows.Forms.Button();
             this.BootManager = new System.Windows.Forms.Button();
-            this.button16 = new System.Windows.Forms.Button();
+            this.excutebank2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Btn_Get_Settings
+            // TestMCU
             // 
-            this.Btn_Get_Settings.BackColor = System.Drawing.SystemColors.Control;
-            this.Btn_Get_Settings.Enabled = false;
-            this.Btn_Get_Settings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Btn_Get_Settings.ForeColor = System.Drawing.Color.SteelBlue;
-            this.Btn_Get_Settings.Location = new System.Drawing.Point(495, 289);
-            this.Btn_Get_Settings.Margin = new System.Windows.Forms.Padding(4);
-            this.Btn_Get_Settings.Name = "Btn_Get_Settings";
-            this.Btn_Get_Settings.Size = new System.Drawing.Size(159, 40);
-            this.Btn_Get_Settings.TabIndex = 1;
-            this.Btn_Get_Settings.Text = "Test MCU ";
-            this.Btn_Get_Settings.UseVisualStyleBackColor = false;
-            this.Btn_Get_Settings.Click += new System.EventHandler(this.Btn_Get_Settings_Click);
+            this.TestMCU.BackColor = System.Drawing.SystemColors.Control;
+            this.TestMCU.Enabled = false;
+            this.TestMCU.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TestMCU.ForeColor = System.Drawing.Color.SteelBlue;
+            this.TestMCU.Location = new System.Drawing.Point(495, 289);
+            this.TestMCU.Margin = new System.Windows.Forms.Padding(4);
+            this.TestMCU.Name = "TestMCU";
+            this.TestMCU.Size = new System.Drawing.Size(159, 40);
+            this.TestMCU.TabIndex = 1;
+            this.TestMCU.Text = "Test MCU ";
+            this.TestMCU.UseVisualStyleBackColor = false;
+            this.TestMCU.Click += new System.EventHandler(this.TestMCU_Click);
             // 
             // Btn_Connect
             // 
@@ -177,65 +177,65 @@
             this.label2.Text = "ID Deivce";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // button1
+            // ReadBank1
             // 
-            this.button1.BackColor = System.Drawing.SystemColors.Control;
-            this.button1.Enabled = false;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button1.Location = new System.Drawing.Point(66, 165);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(181, 40);
-            this.button1.TabIndex = 64;
-            this.button1.Text = "Read Bank1";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.ReadBank1.BackColor = System.Drawing.SystemColors.Control;
+            this.ReadBank1.Enabled = false;
+            this.ReadBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReadBank1.ForeColor = System.Drawing.Color.SteelBlue;
+            this.ReadBank1.Location = new System.Drawing.Point(66, 165);
+            this.ReadBank1.Margin = new System.Windows.Forms.Padding(4);
+            this.ReadBank1.Name = "ReadBank1";
+            this.ReadBank1.Size = new System.Drawing.Size(181, 40);
+            this.ReadBank1.TabIndex = 64;
+            this.ReadBank1.Text = "Read Bank1";
+            this.ReadBank1.UseVisualStyleBackColor = false;
+            this.ReadBank1.Click += new System.EventHandler(this.ReadBank1_Click);
             // 
-            // button2
+            // erasebank2
             // 
-            this.button2.BackColor = System.Drawing.SystemColors.Control;
-            this.button2.Enabled = false;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button2.Location = new System.Drawing.Point(237, 297);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(156, 40);
-            this.button2.TabIndex = 69;
-            this.button2.Text = "Erase Bank2";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.erasebank2.BackColor = System.Drawing.SystemColors.Control;
+            this.erasebank2.Enabled = false;
+            this.erasebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.erasebank2.ForeColor = System.Drawing.Color.SteelBlue;
+            this.erasebank2.Location = new System.Drawing.Point(237, 297);
+            this.erasebank2.Margin = new System.Windows.Forms.Padding(4);
+            this.erasebank2.Name = "erasebank2";
+            this.erasebank2.Size = new System.Drawing.Size(156, 40);
+            this.erasebank2.TabIndex = 69;
+            this.erasebank2.Text = "Erase Bank2";
+            this.erasebank2.UseVisualStyleBackColor = false;
+            this.erasebank2.Click += new System.EventHandler(this.erasebank2_Click);
             // 
-            // button3
+            // eraseban1
             // 
-            this.button3.BackColor = System.Drawing.SystemColors.Control;
-            this.button3.Enabled = false;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button3.Location = new System.Drawing.Point(66, 297);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(156, 40);
-            this.button3.TabIndex = 70;
-            this.button3.Text = "Erase Bank1";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.eraseban1.BackColor = System.Drawing.SystemColors.Control;
+            this.eraseban1.Enabled = false;
+            this.eraseban1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.eraseban1.ForeColor = System.Drawing.Color.SteelBlue;
+            this.eraseban1.Location = new System.Drawing.Point(66, 297);
+            this.eraseban1.Margin = new System.Windows.Forms.Padding(4);
+            this.eraseban1.Name = "eraseban1";
+            this.eraseban1.Size = new System.Drawing.Size(156, 40);
+            this.eraseban1.TabIndex = 70;
+            this.eraseban1.Text = "Erase Bank1";
+            this.eraseban1.UseVisualStyleBackColor = false;
+            this.eraseban1.Click += new System.EventHandler(this.eraseban1_Click);
             // 
-            // button4
+            // writebank1
             // 
-            this.button4.BackColor = System.Drawing.SystemColors.Control;
-            this.button4.Enabled = false;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button4.Location = new System.Drawing.Point(66, 208);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(181, 40);
-            this.button4.TabIndex = 71;
-            this.button4.Text = "Write Bank1";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.writebank1.BackColor = System.Drawing.SystemColors.Control;
+            this.writebank1.Enabled = false;
+            this.writebank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.writebank1.ForeColor = System.Drawing.Color.SteelBlue;
+            this.writebank1.Location = new System.Drawing.Point(66, 208);
+            this.writebank1.Margin = new System.Windows.Forms.Padding(4);
+            this.writebank1.Name = "writebank1";
+            this.writebank1.Size = new System.Drawing.Size(181, 40);
+            this.writebank1.TabIndex = 71;
+            this.writebank1.Text = "Write Bank1";
+            this.writebank1.UseVisualStyleBackColor = false;
+            this.writebank1.Click += new System.EventHandler(this.writebank1_Click);
             // 
             // openFileDialog1
             // 
@@ -251,48 +251,48 @@
             this.filePathTextBox.TabIndex = 74;
             this.filePathTextBox.TextChanged += new System.EventHandler(this.filePathTextBox_TextChanged);
             // 
-            // button5
+            // ReadFile
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.button5.Enabled = false;
-            this.button5.ForeColor = System.Drawing.Color.Brown;
-            this.button5.Location = new System.Drawing.Point(282, 259);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(111, 34);
-            this.button5.TabIndex = 75;
-            this.button5.Text = "Read File";
-            this.button5.UseVisualStyleBackColor = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.ReadFile.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.ReadFile.Enabled = false;
+            this.ReadFile.ForeColor = System.Drawing.Color.Brown;
+            this.ReadFile.Location = new System.Drawing.Point(282, 259);
+            this.ReadFile.Name = "ReadFile";
+            this.ReadFile.Size = new System.Drawing.Size(111, 34);
+            this.ReadFile.TabIndex = 75;
+            this.ReadFile.Text = "Read File";
+            this.ReadFile.UseVisualStyleBackColor = false;
+            this.ReadFile.Click += new System.EventHandler(this.ReadFile_Click);
             // 
-            // button6
+            // ReadBank2
             // 
-            this.button6.BackColor = System.Drawing.SystemColors.Control;
-            this.button6.Enabled = false;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button6.Location = new System.Drawing.Point(267, 165);
-            this.button6.Margin = new System.Windows.Forms.Padding(4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(181, 40);
-            this.button6.TabIndex = 76;
-            this.button6.Text = "Read Bank2";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.ReadBank2.BackColor = System.Drawing.SystemColors.Control;
+            this.ReadBank2.Enabled = false;
+            this.ReadBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReadBank2.ForeColor = System.Drawing.Color.SteelBlue;
+            this.ReadBank2.Location = new System.Drawing.Point(267, 165);
+            this.ReadBank2.Margin = new System.Windows.Forms.Padding(4);
+            this.ReadBank2.Name = "ReadBank2";
+            this.ReadBank2.Size = new System.Drawing.Size(181, 40);
+            this.ReadBank2.TabIndex = 76;
+            this.ReadBank2.Text = "Read Bank2";
+            this.ReadBank2.UseVisualStyleBackColor = false;
+            this.ReadBank2.Click += new System.EventHandler(this.ReadBank2_Click);
             // 
-            // button7
+            // writebank2
             // 
-            this.button7.BackColor = System.Drawing.SystemColors.Control;
-            this.button7.Enabled = false;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button7.Location = new System.Drawing.Point(267, 209);
-            this.button7.Margin = new System.Windows.Forms.Padding(4);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(181, 40);
-            this.button7.TabIndex = 77;
-            this.button7.Text = "Write Bank2";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.writebank2.BackColor = System.Drawing.SystemColors.Control;
+            this.writebank2.Enabled = false;
+            this.writebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.writebank2.ForeColor = System.Drawing.Color.SteelBlue;
+            this.writebank2.Location = new System.Drawing.Point(267, 209);
+            this.writebank2.Margin = new System.Windows.Forms.Padding(4);
+            this.writebank2.Name = "writebank2";
+            this.writebank2.Size = new System.Drawing.Size(181, 40);
+            this.writebank2.TabIndex = 77;
+            this.writebank2.Text = "Write Bank2";
+            this.writebank2.UseVisualStyleBackColor = false;
+            this.writebank2.Click += new System.EventHandler(this.writebank2_Click);
             // 
             // textBox1
             // 
@@ -334,35 +334,35 @@
             this.label3.Text = "Memory Bank2";
             this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
-            // button8
+            // VerifyBank1
             // 
-            this.button8.BackColor = System.Drawing.SystemColors.Control;
-            this.button8.Enabled = false;
-            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button8.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button8.Location = new System.Drawing.Point(66, 120);
-            this.button8.Margin = new System.Windows.Forms.Padding(4);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(181, 40);
-            this.button8.TabIndex = 82;
-            this.button8.Text = "Verify Bank1";
-            this.button8.UseVisualStyleBackColor = false;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
+            this.VerifyBank1.BackColor = System.Drawing.SystemColors.Control;
+            this.VerifyBank1.Enabled = false;
+            this.VerifyBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerifyBank1.ForeColor = System.Drawing.Color.SteelBlue;
+            this.VerifyBank1.Location = new System.Drawing.Point(66, 120);
+            this.VerifyBank1.Margin = new System.Windows.Forms.Padding(4);
+            this.VerifyBank1.Name = "VerifyBank1";
+            this.VerifyBank1.Size = new System.Drawing.Size(181, 40);
+            this.VerifyBank1.TabIndex = 82;
+            this.VerifyBank1.Text = "Verify Bank1";
+            this.VerifyBank1.UseVisualStyleBackColor = false;
+            this.VerifyBank1.Click += new System.EventHandler(this.VerifyBank1_Click);
             // 
-            // button9
+            // VerifyBank2
             // 
-            this.button9.BackColor = System.Drawing.SystemColors.Control;
-            this.button9.Enabled = false;
-            this.button9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button9.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button9.Location = new System.Drawing.Point(267, 120);
-            this.button9.Margin = new System.Windows.Forms.Padding(4);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(181, 40);
-            this.button9.TabIndex = 83;
-            this.button9.Text = "Verify Bank2";
-            this.button9.UseVisualStyleBackColor = false;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.VerifyBank2.BackColor = System.Drawing.SystemColors.Control;
+            this.VerifyBank2.Enabled = false;
+            this.VerifyBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.VerifyBank2.ForeColor = System.Drawing.Color.SteelBlue;
+            this.VerifyBank2.Location = new System.Drawing.Point(267, 120);
+            this.VerifyBank2.Margin = new System.Windows.Forms.Padding(4);
+            this.VerifyBank2.Name = "VerifyBank2";
+            this.VerifyBank2.Size = new System.Drawing.Size(181, 40);
+            this.VerifyBank2.TabIndex = 83;
+            this.VerifyBank2.Text = "Verify Bank2";
+            this.VerifyBank2.UseVisualStyleBackColor = false;
+            this.VerifyBank2.Click += new System.EventHandler(this.VerifyBank2_Click);
             // 
             // BootMaster
             // 
@@ -399,20 +399,20 @@
             this.label5.Text = "0%";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // button11
+            // AutoProgramBank
             // 
-            this.button11.BackColor = System.Drawing.SystemColors.Control;
-            this.button11.Enabled = false;
-            this.button11.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button11.ForeColor = System.Drawing.Color.DarkCyan;
-            this.button11.Location = new System.Drawing.Point(495, 219);
-            this.button11.Margin = new System.Windows.Forms.Padding(4);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(159, 62);
-            this.button11.TabIndex = 87;
-            this.button11.Text = "Auto Program\r\n Bank1";
-            this.button11.UseVisualStyleBackColor = false;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
+            this.AutoProgramBank.BackColor = System.Drawing.SystemColors.Control;
+            this.AutoProgramBank.Enabled = false;
+            this.AutoProgramBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoProgramBank.ForeColor = System.Drawing.Color.DarkCyan;
+            this.AutoProgramBank.Location = new System.Drawing.Point(495, 219);
+            this.AutoProgramBank.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoProgramBank.Name = "AutoProgramBank";
+            this.AutoProgramBank.Size = new System.Drawing.Size(159, 62);
+            this.AutoProgramBank.TabIndex = 87;
+            this.AutoProgramBank.Text = "Auto Program\r\n Bank1";
+            this.AutoProgramBank.UseVisualStyleBackColor = false;
+            this.AutoProgramBank.Click += new System.EventHandler(this.AutoProgramBank_Click);
             // 
             // button12
             // 
@@ -429,20 +429,20 @@
             this.button12.UseVisualStyleBackColor = false;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
-            // button13
+            // HextoBin
             // 
-            this.button13.BackColor = System.Drawing.SystemColors.Control;
-            this.button13.Enabled = false;
-            this.button13.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button13.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button13.Location = new System.Drawing.Point(693, 289);
-            this.button13.Margin = new System.Windows.Forms.Padding(4);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(167, 40);
-            this.button13.TabIndex = 89;
-            this.button13.Text = "Hex to Bin";
-            this.button13.UseVisualStyleBackColor = false;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
+            this.HextoBin.BackColor = System.Drawing.SystemColors.Control;
+            this.HextoBin.Enabled = false;
+            this.HextoBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HextoBin.ForeColor = System.Drawing.Color.SteelBlue;
+            this.HextoBin.Location = new System.Drawing.Point(693, 289);
+            this.HextoBin.Margin = new System.Windows.Forms.Padding(4);
+            this.HextoBin.Name = "HextoBin";
+            this.HextoBin.Size = new System.Drawing.Size(167, 40);
+            this.HextoBin.TabIndex = 89;
+            this.HextoBin.Text = "Hex to Bin";
+            this.HextoBin.UseVisualStyleBackColor = false;
+            this.HextoBin.Click += new System.EventHandler(this.HextoBin_Click);
             // 
             // textBox3
             // 
@@ -453,20 +453,20 @@
             this.textBox3.TabIndex = 90;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged_2);
             // 
-            // button14
+            // excutebank1
             // 
-            this.button14.BackColor = System.Drawing.SystemColors.Control;
-            this.button14.Enabled = false;
-            this.button14.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button14.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button14.Location = new System.Drawing.Point(66, 339);
-            this.button14.Margin = new System.Windows.Forms.Padding(4);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(156, 40);
-            this.button14.TabIndex = 91;
-            this.button14.Text = "Excute Bank1";
-            this.button14.UseVisualStyleBackColor = false;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.excutebank1.BackColor = System.Drawing.SystemColors.Control;
+            this.excutebank1.Enabled = false;
+            this.excutebank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excutebank1.ForeColor = System.Drawing.Color.SteelBlue;
+            this.excutebank1.Location = new System.Drawing.Point(66, 339);
+            this.excutebank1.Margin = new System.Windows.Forms.Padding(4);
+            this.excutebank1.Name = "excutebank1";
+            this.excutebank1.Size = new System.Drawing.Size(156, 40);
+            this.excutebank1.TabIndex = 91;
+            this.excutebank1.Text = "Excute Bank1";
+            this.excutebank1.UseVisualStyleBackColor = false;
+            this.excutebank1.Click += new System.EventHandler(this.excutebank1_Click);
             // 
             // BootManager
             // 
@@ -483,50 +483,50 @@
             this.BootManager.UseVisualStyleBackColor = false;
             this.BootManager.Click += new System.EventHandler(this.BootManager_Click);
             // 
-            // button16
+            // excutebank2
             // 
-            this.button16.BackColor = System.Drawing.SystemColors.Control;
-            this.button16.Enabled = false;
-            this.button16.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button16.ForeColor = System.Drawing.Color.SteelBlue;
-            this.button16.Location = new System.Drawing.Point(237, 339);
-            this.button16.Margin = new System.Windows.Forms.Padding(4);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(156, 40);
-            this.button16.TabIndex = 93;
-            this.button16.Text = "Excute Bank2";
-            this.button16.UseVisualStyleBackColor = false;
-            this.button16.Click += new System.EventHandler(this.button16_Click);
+            this.excutebank2.BackColor = System.Drawing.SystemColors.Control;
+            this.excutebank2.Enabled = false;
+            this.excutebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excutebank2.ForeColor = System.Drawing.Color.SteelBlue;
+            this.excutebank2.Location = new System.Drawing.Point(237, 339);
+            this.excutebank2.Margin = new System.Windows.Forms.Padding(4);
+            this.excutebank2.Name = "excutebank2";
+            this.excutebank2.Size = new System.Drawing.Size(156, 40);
+            this.excutebank2.TabIndex = 93;
+            this.excutebank2.Text = "Excute Bank2";
+            this.excutebank2.UseVisualStyleBackColor = false;
+            this.excutebank2.Click += new System.EventHandler(this.excutebank2_Click);
             // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(901, 385);
-            this.Controls.Add(this.button16);
+            this.Controls.Add(this.excutebank2);
             this.Controls.Add(this.BootManager);
-            this.Controls.Add(this.button14);
+            this.Controls.Add(this.excutebank1);
             this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.button13);
+            this.Controls.Add(this.HextoBin);
             this.Controls.Add(this.button12);
-            this.Controls.Add(this.button11);
+            this.Controls.Add(this.AutoProgramBank);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.BootMaster);
-            this.Controls.Add(this.button9);
-            this.Controls.Add(this.button8);
+            this.Controls.Add(this.VerifyBank2);
+            this.Controls.Add(this.VerifyBank1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
-            this.Controls.Add(this.button5);
+            this.Controls.Add(this.writebank2);
+            this.Controls.Add(this.ReadBank2);
+            this.Controls.Add(this.ReadFile);
             this.Controls.Add(this.filePathTextBox);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.writebank1);
+            this.Controls.Add(this.eraseban1);
+            this.Controls.Add(this.erasebank2);
+            this.Controls.Add(this.ReadBank1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.Numeric_Erros);
             this.Controls.Add(this.Combo_PortList);
@@ -535,7 +535,7 @@
             this.Controls.Add(this.txt_DevVersion);
             this.Controls.Add(this.Btn_Disconnect);
             this.Controls.Add(this.Btn_Connect);
-            this.Controls.Add(this.Btn_Get_Settings);
+            this.Controls.Add(this.TestMCU);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_Settings";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -547,7 +547,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button Btn_Get_Settings;
+        private System.Windows.Forms.Button TestMCU;
         private System.Windows.Forms.Button Btn_Connect;
         private System.Windows.Forms.Button Btn_Disconnect;
         private System.Windows.Forms.Label label6;
@@ -556,30 +556,30 @@
         private System.Windows.Forms.ComboBox Combo_PortList;
         private System.Windows.Forms.TextBox Numeric_Erros;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button ReadBank1;
+        private System.Windows.Forms.Button erasebank2;
+        private System.Windows.Forms.Button eraseban1;
+        private System.Windows.Forms.Button writebank1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.TextBox filePathTextBox;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button ReadFile;
+        private System.Windows.Forms.Button ReadBank2;
+        private System.Windows.Forms.Button writebank2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button VerifyBank1;
+        private System.Windows.Forms.Button VerifyBank2;
         private System.Windows.Forms.Button BootMaster;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button AutoProgramBank;
         private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button HextoBin;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button excutebank1;
         private System.Windows.Forms.Button BootManager;
-        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button excutebank2;
     }
 }
