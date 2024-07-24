@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using STM32Bootloading.Helpers;
 using STM32Bootloading.Models;
 using System;
@@ -58,9 +58,10 @@ namespace STM32Bootloading
                 byte[] dataByte = new byte[2];
                 System.Threading.Thread.Sleep(100);
                 dataByte[0] = 0x00; //GET COMMAND               
-                port.Write(dataByte, 0, 1);
-                dataByte[0] = 0xFF;
-                port.Write(dataByte, 0, 1);
+                dataByte[1] = 0xFF; //GET COMMAND               
+                port.Write(dataByte, 0, 2);
+                //dataByte[0] = 0xFF;
+                //port.Write(dataByte, 0, 1);
                 byte[] rx_buff1 = new byte[15];
                 rx_buff1 = ReadPortBytes(15);
                 MessageBox.Show($"Test Pass\n{rx_buff1[0]:x2}\n{rx_buff1[1]:x2}\n{rx_buff1[2]:x2}\n{rx_buff1[3]:x2}\n{rx_buff1[4]:x2}\n" +
@@ -204,9 +205,9 @@ namespace STM32Bootloading
             {
                 MessageBox.Show(ex.Message);
 
-                port.Close();
-
-                throw;
+                //port.Close();
+                return null;
+                //throw;
             }
         }
 
@@ -217,8 +218,8 @@ namespace STM32Bootloading
                 string port_name = Combo_PortList.Text;
                 //combo_serialList = serialPorts[0];
                 port = new SerialPort(port_name, 115200, Parity.None, 8, StopBits.One);
-                port.WriteTimeout = 1000;
-                port.ReadTimeout = 2000;
+                port.WriteTimeout = 5000;
+                port.ReadTimeout = 8000;
                 port.Open();
                 Btn_connectDevice_Disable();
                 
@@ -420,6 +421,7 @@ namespace STM32Bootloading
             for (int j = 0; j < Num_frim; j++)
             {
                 byte[] dataByte = new byte[2];
+                byte[] tx_buff = new byte[5];
                 dataByte[0] = 0x11;// READ COMMAND                
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xEE;
@@ -429,30 +431,37 @@ namespace STM32Bootloading
                 if (rx_buff[0] == 0x79)
                 {
                     int number = 0x08000000 + (j * 0x0100);//ADDRESS
+
                     byte[] dataByte1 = BitConverter.GetBytes(number);
-                    port.Write(new byte[] { dataByte1[3] }, 0, 1);
-                    port.Write(new byte[] { dataByte1[2] }, 0, 1);
-                    port.Write(new byte[] { dataByte1[1] }, 0, 1);
-                    port.Write(new byte[] { dataByte1[0] }, 0, 1);
-                    int result = 0x00;
+                    //port.Write(new byte[] { dataByte1[3] }, 0, 1);
+                    //port.Write(new byte[] { dataByte1[2] }, 0, 1);
+                    //port.Write(new byte[] { dataByte1[1] }, 0, 1);
+                    //port.Write(new byte[] { dataByte1[0] }, 0, 1);
+                    tx_buff[3] = dataByte1[0];
+                    tx_buff[2] = dataByte1[1];
+                    tx_buff[1] = dataByte1[2];
+                    tx_buff[0] = dataByte1[3];
+                    byte result = 0x00;
                     int numberOfBytes = 4;
                     for (int i = 0; i < numberOfBytes; i++)
                     {
                         result ^= dataByte1[i];
                     }
-                    byte[] resultBytes = BitConverter.GetBytes(result);
-                    port.Write(resultBytes, 0, 1);
+                    tx_buff[4] = result;
+                    
+                    port.Write(tx_buff, 0, 5);
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
                     {
-                        byte[] dataByte2 = new byte[2];                       
+                        byte[] dataByte2 = new byte[2];
                         dataByte2[0] = 0xFF; //NUMBER OF BYTE                       
-                        port.Write(dataByte2, 0, 1);
-                        dataByte2[0] = 0x00;
-                        port.Write(dataByte2, 0, 1);
+                        dataByte2[1] = 0x00;
+                        port.Write(dataByte2, 0, 2);
                     }
-                    byte[] rx_buff9 = new byte[1];
-                    rx_buff9 = ReadPortBytes(1);
+                    else
+                        break;
+                    //byte[] rx_buff9 = new byte[1];
+                    //rx_buff9 = ReadPortBytes(1);
                     byte[] rx_buff1 = new byte[256];
                     rx_buff1 = ReadPortBytes(256);
                     string memoryContent = "";// "Read Memory Bank1:\n";
@@ -597,8 +606,192 @@ namespace STM32Bootloading
             else if (rx_buff[0] == 0x1f) { MessageBox.Show("Not Erase Bank1"); 
             }
         }
+        const int OneFrim = 256;
 
-   
+
+        private void writebank_shh()
+        {
+            string filePath = filePathTextBox.Text;
+
+            try
+            {
+                // Read all lines from the hex file
+                string[] lines = File.ReadAllLines(filePath);
+                // Read the first 256 bytes from the hex file
+                // byte[] fileBytes = ReadFirst256Bytes(filePath);
+                int numberOfBytes = GetNumberOfBytes(filePath);
+                byte chunkSize = 0xff;
+                int chunkQty = (numberOfBytes / chunkSize) + 1;
+                
+                for (int chunkNumber = 0; chunkNumber <= chunkQty; chunkNumber++)
+                {
+                    label4.Text = $"{((chunkNumber) * 100) / chunkQty}%";
+                    byte[] fileBytes = ReadNext256Bytes(filePath, chunkNumber);
+                    byte xorResult = CalculateXOR(fileBytes);
+                    // Display the result
+                    //  resultsTextBox.AppendText($"XOR of the first 256 bytes in {Path.GetFileName(filePath)}: 0x{xorResult:X2}\r\n");
+                    byte[] cmdByte = new byte[2];
+                    cmdByte[0] = 0x31; //WRITE COMMAND                   
+                    cmdByte[1] = 0xCE;
+                    port.Write(cmdByte, 0, 2);
+                    System.Threading.Thread.Sleep(10);
+                    byte[] rx_buff = new byte[1];
+                    byte[] addr_reversed = new byte[5];
+                    rx_buff = ReadPortBytes(1);
+                    if (rx_buff[0] == 0x79)
+                    {
+                        int number = 0x08000000 + (chunkNumber * 0x0100);//ADDRESS + CHECKSUM
+                        byte[] addr = BitConverter.GetBytes(number);
+                        addr_reversed[0] = addr[3];
+                        addr_reversed[1] = addr[2];
+                        addr_reversed[2] = addr[1];
+                        addr_reversed[3] = addr[0];
+                        byte checksum = 0x00;
+                        // int numberOfBytes = 4;
+                        for (int i = 0; i < 4; i++)
+                        {
+                            checksum ^= addr_reversed[i];
+                        }
+                        addr_reversed[4] = checksum;
+                        port.Write(addr_reversed, 0, addr_reversed.Length);
+                        System.Threading.Thread.Sleep(50);
+                        rx_buff = ReadPortBytes(1);
+                        if (rx_buff[0] != 0x79)
+                        {
+                            MessageBox.Show($"Failed programming");
+                            return;
+                        }
+
+                        byte[] dataByte = new byte[1];
+                        dataByte[0] = chunkSize;
+                        dataByte = AppendByteArray(dataByte, fileBytes);
+                        dataByte = AppendByte(dataByte, xorResult);
+                        //port.Write(dataByte, 0, dataByte.Length);
+                        port.Write(dataByte, 0, dataByte.Length-100);
+                        System.Threading.Thread.Sleep(80);
+                        port.Write(dataByte, dataByte.Length - 100, 100);
+                        rx_buff = ReadPortBytes(1);
+                        if (rx_buff[0] == 0x79)
+                        {
+                            if (chunkQty == chunkNumber)
+                            {
+                                //Read1();
+                                cmdByte[0] = 0x21; //WRITE COMMAND                   
+                                cmdByte[1] = 0xDE;
+                                port.Write(cmdByte, 0, 2);
+                                rx_buff = ReadPortBytes(1);
+                                if (rx_buff[0] != 0x79)
+                                {
+                                    MessageBox.Show($"Failed programming");
+                                    return;
+                                }
+                                byte[] addrByte = new byte[5];
+                                addrByte[0] = 0x08; //WRITE COMMAND                   
+                                addrByte[1] = 0x00;
+                                addrByte[2] = 0x00;
+                                addrByte[3] = 0x00;
+                                addrByte[4] = 0x08;
+                                port.Write(addrByte, 0, 5);
+                                rx_buff = ReadPortBytes(1);
+                                if (rx_buff[0] != 0x79)
+                                {
+                                    MessageBox.Show($"Failed programming");
+                                    return;
+                                }
+                                MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                //   port.Write(dataToSend, 0, dataToSend.Length);
+                            }
+                        }
+                        else //if (rx_buff[0] == 0x1f)
+                        {
+                            MessageBox.Show($"Not program - NAK {rx_buff[0]}");
+                        }
+                    }
+                }
+                excutebank1.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                //  resultsTextBox.AppendText($"An error occurred: {ex.Message}\r\n");
+            }
+        }
+        int Erase_shh()
+        {
+            byte[] dataByte = new byte[2];
+            int memory_size = 127;
+            dataByte[0] = 0x44;
+            dataByte[1] = 0xBB;
+            port.Write(dataByte, 0, 2);
+            byte[] rx_buff = new byte[1];
+            rx_buff = ReadPortBytes(1);
+            if (rx_buff[0] == 0x1F)
+            {
+                return -1;
+            }
+
+            System.Threading.Thread.Sleep(100);
+            dataByte[0] = (byte)(memory_size / 256);
+            dataByte[1] = (byte)(memory_size%256);
+            port.Write(dataByte, 0, 2);
+            byte[] dataByte1 = new byte[2];
+            int page_number = 0;
+            byte[] sumxor = new byte[1];
+            sumxor[0] = dataByte[1];
+            do
+            {
+                dataByte1[0] = (byte)(page_number/256);
+                dataByte1[1] = (byte)(page_number%256);
+                //sumxor[0] += dataByte1[1];
+                //dataByte1 = BitConverter.GetBytes(page_number);
+                port.Write(dataByte1, 0, 2);
+                sumxor[0] ^= dataByte1[1];
+                page_number++;
+            } while (page_number <= memory_size + 1);
+
+                System.Threading.Thread.Sleep(10);
+            dataByte1[0] = sumxor[0];
+            port.Write(dataByte1, 0, 1);
+            rx_buff[0] = 0;
+            rx_buff = ReadPortBytes(1);
+            if (rx_buff[0] == 0x79)
+            {
+            
+                MessageBox.Show("Successful Erase SHH", "Successful Erase SHH", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
+            if (rx_buff[0] == 0x1f)
+            {
+                MessageBox.Show("Not Erase SHH");
+            }
+            return 1;
+        }
+        static byte[] AppendByte(byte[] byteArray, byte singleByte)
+        {
+            // Create a new array with size of original array + 1
+            byte[] result = new byte[byteArray.Length + 1];
+
+            // Copy the original array to the new array
+            Array.Copy(byteArray, result, byteArray.Length);
+
+            // Add the single byte to the end of the new array
+            result[result.Length - 1] = singleByte;
+
+            return result;
+        }
+
+        static byte[] AppendByteArray(byte[] originalArray, byte[] byteArrayToAppend)
+        {
+            // Create a new array with size of original array + array to append
+            byte[] result = new byte[originalArray.Length + byteArrayToAppend.Length];
+
+            // Copy the original array to the new array
+            Array.Copy(originalArray, result, originalArray.Length);
+
+            // Copy the byte array to append to the end of the new array
+            Array.Copy(byteArrayToAppend, 0, result, originalArray.Length, byteArrayToAppend.Length);
+
+            return result;
+        }
 
         private void erasebank2_Click(object sender, EventArgs e)
         {
@@ -670,8 +863,6 @@ namespace STM32Bootloading
 
         }
         
-        const int OneFrim = 256;
-        
 
         private void writebank1_Click(object sender, EventArgs e)
         {
@@ -695,28 +886,32 @@ namespace STM32Bootloading
                     //  resultsTextBox.AppendText($"XOR of the first 256 bytes in {Path.GetFileName(filePath)}: 0x{xorResult:X2}\r\n");
                     byte[] dataByte3 = new byte[2];                                       
                     dataByte3[0] = 0x31; //WRITE COMMAND                   
-                    port.Write(dataByte3, 0, 1);
-                    dataByte3[0] = 0xCE;
-                    port.Write(dataByte3, 0, 1);
-                    byte[] rx_buff = new byte[1];
+                    dataByte3[1] = 0xCE;
+                    port.Write(dataByte3, 0, 2);
 
+                    byte[] rx_buff = new byte[1];
+                    byte[] tx_buff = new byte[5];
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
                     {
                         int number = 0x08000000 + (chunkNumber * 0x0100);//ADDRESS + CHECKSUM
                         byte[] dataByte1 = BitConverter.GetBytes(number);
-                        port.Write(new byte[] { dataByte1[3] }, 0, 1);
-                        port.Write(new byte[] { dataByte1[2] }, 0, 1);
-                        port.Write(new byte[] { dataByte1[1] }, 0, 1);
-                        port.Write(new byte[] { dataByte1[0] }, 0, 1);
-                        int result = 0x00;
+                        //port.Write(new byte[] { dataByte1[3] }, 0, 1);
+                        //port.Write(new byte[] { dataByte1[2] }, 0, 1);
+                        //port.Write(new byte[] { dataByte1[1] }, 0, 1);
+                        //port.Write(new byte[] { dataByte1[0] }, 0, 1);
+                        tx_buff[0] = dataByte1[3];
+                        tx_buff[1] = dataByte1[2];
+                        tx_buff[2] = dataByte1[1];
+                        tx_buff[3] = dataByte1[0];
+                        byte result = 0x00;
                         // int numberOfBytes = 4;
                         for (int i = 0; i < 4; i++)
                         {
                             result ^= dataByte1[i];
                         }
-                        byte[] resultBytes = BitConverter.GetBytes(result);
-                        port.Write(resultBytes, 0, 1);
+                        tx_buff[4] = result;
+                        port.Write(tx_buff, 0, 5);
                         rx_buff = ReadPortBytes(1);
                         if (rx_buff[0] == 0x79)
                         {
@@ -727,12 +922,14 @@ namespace STM32Bootloading
                             dataByte5[0] = 0xFF;//NUMBER OF BYTE
                             dataByte7[0] = xorResult;//CHECKSUM
                             port.Write(dataByte5, 0, 1);
-                            foreach (byte b in fileBytes)
-                            {
-                                port.Write(new byte[] { b }, 0, 1); // Send one byte
-                                                                    // Thread.Sleep(1); 
-                            }
+                            port.Write(fileBytes, 0, fileBytes.Length);
+                            //foreach (byte b in fileBytes)
+                            //{
+                            //    port.Write(new byte[] { b }, 0, 1); // Send one byte
+                            //                                        // Thread.Sleep(1); 
+                            //}
                             //port.Write(fileBytes, 0, OneFrim);
+                            System.Threading.Thread.Sleep(100);
                             port.Write(dataByte7, 0, 1);
                             rx_buff = ReadPortBytes(1);
                             if (rx_buff[0] == 0x79)
@@ -860,7 +1057,7 @@ namespace STM32Bootloading
             string filePath = filePathTextBox.Text;
             if (flag_manager == 0)
             {
-                openFileDialog1.Filter = "Bin Files|Master.bin";//|Hex Files|*.hex|All Files|*.*
+                openFileDialog1.Filter = "Bin Files|*.bin";//|Hex Files|*.hex|All Files|*.*
             }
             else
             {
@@ -1398,7 +1595,9 @@ namespace STM32Bootloading
         private void BootMaster_Click(object sender, EventArgs e)
         {
             try
-            {                
+            {
+                MasterConnct1();
+                return;
                 string msg = "Boott"; //request boot
                 port.Write(msg);
                 System.Threading.Thread.Sleep(1);
@@ -1453,9 +1652,10 @@ namespace STM32Bootloading
 
         private void AutoProgramBank_Click(object sender, EventArgs e)
         {
-            Erase1();
-            Write1();
-            Verify1();
+            Erase_shh();
+            //Erase1();
+            writebank_shh();
+            //Verify1();
         }
 
         private void button12_Click(object sender, EventArgs e)
