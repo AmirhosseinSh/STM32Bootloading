@@ -170,6 +170,8 @@ namespace STM32Bootloading
             VerifyBank1.Enabled = false;
             VerifyBank2.Enabled = false;
             BootMaster.Enabled = true;
+            BootManager.Enabled = true;
+            BootSmartHandle.Enabled = true;
             AutoProgramBank.Enabled = false;
             HextoBin.Enabled = true;
             BootManager.Enabled = true;
@@ -267,7 +269,9 @@ namespace STM32Bootloading
             try
             {
                 byte[] dataByte = new byte[1];
-                System.Threading.Thread.Sleep(1);
+                System.Threading.Thread.Sleep(1000);
+                port.DiscardInBuffer();
+                port.DiscardOutBuffer();
                 dataByte[0] = 0x7F;//requst confirmatin for boot command
                 port.Write(dataByte, 0, 1);                
                 byte[] rx_buff = new byte[1];
@@ -288,18 +292,18 @@ namespace STM32Bootloading
                     excutebank2.Enabled = true;
                     erasebank2.Enabled = true;
                     ReadBank2.Enabled = true;
+                    System.Threading.Thread.Sleep(10);
                     byte[] dataByte8 = new byte[2];                    
                     dataByte8[0] = 0x01; //request Ver                  
-                    port.Write(dataByte8, 0, 1);                    
-                    dataByte8[0] = 0xFE;
-                    port.Write(dataByte8, 0, 1);
+                    dataByte8[1] = 0xFE;
+                    port.Write(dataByte8, 0, 2);
                     byte[] rx_buff1 = new byte[5];
                     rx_buff1 = ReadPortBytes(5);
-                    txt_DevVersion.Text = rx_buff1[1].ToString("x");                    
-                    dataByte8[0] = 0x02;//request ID                    
-                    port.Write(dataByte8, 0, 1);                    
-                    dataByte8[0] = 0xFD;
-                    port.Write(dataByte8, 0, 1);                   
+                    txt_DevVersion.Text = rx_buff1[1].ToString("x");
+                    System.Threading.Thread.Sleep(10);
+                    dataByte8[0] = 0x02;//request ID
+                    dataByte8[1] = 0xFD;
+                    port.Write(dataByte8, 0, 2);
                     rx_buff1 = ReadPortBytes(5);
                     Numeric_Erros.Text = rx_buff1[3].ToString("x");
                 }
@@ -1596,36 +1600,36 @@ namespace STM32Bootloading
         {
             try
             {
-                MasterConnct1();
-                return;
-                string msg = "Boott"; //request boot
+                string msg = "$BootModeActivation\n\r"; //request boot
+                MessageBox.Show($"Wait a few seconds");
                 port.Write(msg);
-                System.Threading.Thread.Sleep(1);
-                byte[] rx_buff1 = new byte[1];
+                int device_connection = 1;
+                port.ReadTimeout = 1000;
+                //for (int i = 0; i < 20; i++)
+                //{
 
-                rx_buff1 = ReadPortBytes(1);
-
-                if (rx_buff1[0] == 0x6f)//Read letter "o" for conformation
+                //    System.Threading.Thread.Sleep(50);
+                //    byte[] rx_buff1 = new byte[20];
+                //    string rx_string = port.ReadLine();
+                //    if (rx_string.Contains("BootModeActivated"))
+                //    {
+                //        device_connection = 1;
+                //        break;
+                //    }
+                //}
+                if (device_connection == 1)
                 {
+                    port.DiscardInBuffer();
+                    port.DiscardOutBuffer();
                     BootMaster.Enabled = false;
                     BootManager.Enabled = false;
+                    BootSmartHandle.Enabled = false;
                     System.Threading.Thread.Sleep(4000);
                     MasterConnct1();
                 }
-                else if (rx_buff1[0] == 0x00)
+                else
                 {
-                    rx_buff1 = ReadPortBytes(1);
-                    if (rx_buff1[0] == 0x6f)
-                    {
-                        BootMaster.Enabled = false;
-                        BootManager.Enabled = false;
-                        System.Threading.Thread.Sleep(4000);
-                        MasterConnct1();
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Master CPU not answer");
-                    }
+                    MessageBox.Show($"Master CPU not answer");
                 }
 
             }
@@ -1786,7 +1790,16 @@ namespace STM32Bootloading
 
         }
         int flag_manager = 0;
-        
+
+        private void BootSmartHandle_Click(object sender, EventArgs e)
+        {
+            string msg = "$shhBootModeBT\n\r"; //request boot
+            MessageBox.Show($"Wait a few seconds");
+            port.Write(msg);
+            port.ReadTimeout = 1000;
+            MasterConnct1();
+        }
+
         private void BootManager_Click(object sender, EventArgs e)//TODO
         {
             try
@@ -1884,7 +1897,7 @@ namespace STM32Bootloading
 
         }
 
-        
+
     }
 }
     

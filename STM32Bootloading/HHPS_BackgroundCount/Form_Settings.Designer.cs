@@ -62,6 +62,7 @@
             this.excutebank1 = new System.Windows.Forms.Button();
             this.BootManager = new System.Windows.Forms.Button();
             this.excutebank2 = new System.Windows.Forms.Button();
+            this.BootSmartHandle = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // TestMCU
@@ -183,7 +184,7 @@
             this.ReadBank1.Enabled = false;
             this.ReadBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadBank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.ReadBank1.Location = new System.Drawing.Point(66, 165);
+            this.ReadBank1.Location = new System.Drawing.Point(66, 240);
             this.ReadBank1.Margin = new System.Windows.Forms.Padding(4);
             this.ReadBank1.Name = "ReadBank1";
             this.ReadBank1.Size = new System.Drawing.Size(181, 40);
@@ -198,7 +199,7 @@
             this.erasebank2.Enabled = false;
             this.erasebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.erasebank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.erasebank2.Location = new System.Drawing.Point(237, 297);
+            this.erasebank2.Location = new System.Drawing.Point(237, 372);
             this.erasebank2.Margin = new System.Windows.Forms.Padding(4);
             this.erasebank2.Name = "erasebank2";
             this.erasebank2.Size = new System.Drawing.Size(156, 40);
@@ -213,7 +214,7 @@
             this.eraseban1.Enabled = false;
             this.eraseban1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eraseban1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.eraseban1.Location = new System.Drawing.Point(66, 297);
+            this.eraseban1.Location = new System.Drawing.Point(66, 372);
             this.eraseban1.Margin = new System.Windows.Forms.Padding(4);
             this.eraseban1.Name = "eraseban1";
             this.eraseban1.Size = new System.Drawing.Size(156, 40);
@@ -228,7 +229,7 @@
             this.writebank1.Enabled = false;
             this.writebank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.writebank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.writebank1.Location = new System.Drawing.Point(66, 208);
+            this.writebank1.Location = new System.Drawing.Point(66, 283);
             this.writebank1.Margin = new System.Windows.Forms.Padding(4);
             this.writebank1.Name = "writebank1";
             this.writebank1.Size = new System.Drawing.Size(181, 40);
@@ -244,7 +245,7 @@
             // 
             // filePathTextBox
             // 
-            this.filePathTextBox.Location = new System.Drawing.Point(66, 253);
+            this.filePathTextBox.Location = new System.Drawing.Point(66, 328);
             this.filePathTextBox.Multiline = true;
             this.filePathTextBox.Name = "filePathTextBox";
             this.filePathTextBox.Size = new System.Drawing.Size(190, 40);
@@ -256,7 +257,7 @@
             this.ReadFile.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ReadFile.Enabled = false;
             this.ReadFile.ForeColor = System.Drawing.Color.Brown;
-            this.ReadFile.Location = new System.Drawing.Point(282, 259);
+            this.ReadFile.Location = new System.Drawing.Point(282, 334);
             this.ReadFile.Name = "ReadFile";
             this.ReadFile.Size = new System.Drawing.Size(111, 34);
             this.ReadFile.TabIndex = 75;
@@ -270,7 +271,7 @@
             this.ReadBank2.Enabled = false;
             this.ReadBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadBank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.ReadBank2.Location = new System.Drawing.Point(267, 165);
+            this.ReadBank2.Location = new System.Drawing.Point(267, 240);
             this.ReadBank2.Margin = new System.Windows.Forms.Padding(4);
             this.ReadBank2.Name = "ReadBank2";
             this.ReadBank2.Size = new System.Drawing.Size(181, 40);
@@ -285,7 +286,7 @@
             this.writebank2.Enabled = false;
             this.writebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.writebank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.writebank2.Location = new System.Drawing.Point(267, 209);
+            this.writebank2.Location = new System.Drawing.Point(267, 284);
             this.writebank2.Margin = new System.Windows.Forms.Padding(4);
             this.writebank2.Name = "writebank2";
             this.writebank2.Size = new System.Drawing.Size(181, 40);
@@ -340,7 +341,7 @@
             this.VerifyBank1.Enabled = false;
             this.VerifyBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerifyBank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.VerifyBank1.Location = new System.Drawing.Point(66, 120);
+            this.VerifyBank1.Location = new System.Drawing.Point(66, 195);
             this.VerifyBank1.Margin = new System.Windows.Forms.Padding(4);
             this.VerifyBank1.Name = "VerifyBank1";
             this.VerifyBank1.Size = new System.Drawing.Size(181, 40);
@@ -355,7 +356,7 @@
             this.VerifyBank2.Enabled = false;
             this.VerifyBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerifyBank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.VerifyBank2.Location = new System.Drawing.Point(267, 120);
+            this.VerifyBank2.Location = new System.Drawing.Point(267, 195);
             this.VerifyBank2.Margin = new System.Windows.Forms.Padding(4);
             this.VerifyBank2.Name = "VerifyBank2";
             this.VerifyBank2.Size = new System.Drawing.Size(181, 40);
@@ -375,14 +376,14 @@
             this.BootMaster.Name = "BootMaster";
             this.BootMaster.Size = new System.Drawing.Size(180, 40);
             this.BootMaster.TabIndex = 84;
-            this.BootMaster.Text = "BootMaster";
+            this.BootMaster.Text = "Program Master";
             this.BootMaster.UseVisualStyleBackColor = false;
             this.BootMaster.Click += new System.EventHandler(this.BootMaster_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 222);
+            this.label4.Location = new System.Drawing.Point(22, 297);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 16);
             this.label4.TabIndex = 85;
@@ -392,7 +393,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 136);
+            this.label5.Location = new System.Drawing.Point(22, 211);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 16);
             this.label5.TabIndex = 86;
@@ -459,7 +460,7 @@
             this.excutebank1.Enabled = false;
             this.excutebank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.excutebank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.excutebank1.Location = new System.Drawing.Point(66, 339);
+            this.excutebank1.Location = new System.Drawing.Point(66, 414);
             this.excutebank1.Margin = new System.Windows.Forms.Padding(4);
             this.excutebank1.Name = "excutebank1";
             this.excutebank1.Size = new System.Drawing.Size(156, 40);
@@ -479,7 +480,7 @@
             this.BootManager.Name = "BootManager";
             this.BootManager.Size = new System.Drawing.Size(180, 40);
             this.BootManager.TabIndex = 92;
-            this.BootManager.Text = "BootManager";
+            this.BootManager.Text = "Program Manager";
             this.BootManager.UseVisualStyleBackColor = false;
             this.BootManager.Click += new System.EventHandler(this.BootManager_Click);
             // 
@@ -489,7 +490,7 @@
             this.excutebank2.Enabled = false;
             this.excutebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.excutebank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.excutebank2.Location = new System.Drawing.Point(237, 339);
+            this.excutebank2.Location = new System.Drawing.Point(237, 414);
             this.excutebank2.Margin = new System.Windows.Forms.Padding(4);
             this.excutebank2.Name = "excutebank2";
             this.excutebank2.Size = new System.Drawing.Size(156, 40);
@@ -498,11 +499,27 @@
             this.excutebank2.UseVisualStyleBackColor = false;
             this.excutebank2.Click += new System.EventHandler(this.excutebank2_Click);
             // 
+            // BootSmartHandle
+            // 
+            this.BootSmartHandle.BackColor = System.Drawing.SystemColors.Control;
+            this.BootSmartHandle.Enabled = false;
+            this.BootSmartHandle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BootSmartHandle.ForeColor = System.Drawing.Color.SeaGreen;
+            this.BootSmartHandle.Location = new System.Drawing.Point(66, 124);
+            this.BootSmartHandle.Margin = new System.Windows.Forms.Padding(4);
+            this.BootSmartHandle.Name = "BootSmartHandle";
+            this.BootSmartHandle.Size = new System.Drawing.Size(180, 40);
+            this.BootSmartHandle.TabIndex = 94;
+            this.BootSmartHandle.Text = "Program SH";
+            this.BootSmartHandle.UseVisualStyleBackColor = false;
+            this.BootSmartHandle.Click += new System.EventHandler(this.BootSmartHandle_Click);
+            // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(901, 385);
+            this.ClientSize = new System.Drawing.Size(901, 478);
+            this.Controls.Add(this.BootSmartHandle);
             this.Controls.Add(this.excutebank2);
             this.Controls.Add(this.BootManager);
             this.Controls.Add(this.excutebank1);
@@ -581,5 +598,6 @@
         private System.Windows.Forms.Button excutebank1;
         private System.Windows.Forms.Button BootManager;
         private System.Windows.Forms.Button excutebank2;
+        private System.Windows.Forms.Button BootSmartHandle;
     }
 }
