@@ -10,6 +10,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace STM32Bootloading
         public Form_Settings()
         {
             InitializeComponent();
-           
+
         }
 
         private void Form_Settings_Load(object sender, EventArgs e)
@@ -47,26 +48,56 @@ namespace STM32Bootloading
                 MessageBox.Show(ex.Message);
             }
         }
-        
 
-        
+
+
 
         private void TestMCU_Click(object sender, EventArgs e)
         {
             try
             {
+                ClearBuffer();
+                Tx_Text_Box.Text = "";
                 byte[] dataByte = new byte[2];
+                dataByte[0] = 0x7F; //Check connection
+                port.Write(dataByte, 0, 1);
+                Tx_Text_Box.AppendText(BitConverter.ToString(dataByte, 0,1).Replace("-", "") + Environment.NewLine);
+                if (!acknowledge())
+                    return;
                 System.Threading.Thread.Sleep(100);
+                
+                byte[] dataByte8 = new byte[2];
+                dataByte8[0] = 0x01; //request Ver                  
+                dataByte8[1] = 0xFE;
+                port.Write(dataByte8, 0, 2);
+                
+                Tx_Text_Box.AppendText(BitConverter.ToString(dataByte8, 0, 2).Replace("-", "") + Environment.NewLine);
+                byte[] rx_buff1 = new byte[15];
+                rx_buff1 = ReadPortBytes(5);
+                RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 5).Replace("-", " ") + Environment.NewLine);
+                txt_DevVersion.Text = rx_buff1[1].ToString("x");
+
+                System.Threading.Thread.Sleep(10);
+                dataByte8[0] = 0x02;//request ID
+                dataByte8[1] = 0xFD;
+                port.Write(dataByte8, 0, 2);
+                Tx_Text_Box.AppendText(BitConverter.ToString(dataByte8, 0, 2).Replace("-", "") + Environment.NewLine);
+                rx_buff1 = ReadPortBytes(5);
+                RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 5).Replace("-", " ") + Environment.NewLine);
+                Numeric_Erros.Text = rx_buff1[3].ToString("x");
+
                 dataByte[0] = 0x00; //GET COMMAND               
                 dataByte[1] = 0xFF; //GET COMMAND               
                 port.Write(dataByte, 0, 2);
+                Tx_Text_Box.AppendText(BitConverter.ToString(dataByte, 0, 2).Replace("-", "") + Environment.NewLine);
                 //dataByte[0] = 0xFF;
                 //port.Write(dataByte, 0, 1);
-                byte[] rx_buff1 = new byte[15];
                 rx_buff1 = ReadPortBytes(15);
+                RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 15).Replace("-", " ") + Environment.NewLine);
                 MessageBox.Show($"Test Pass\n{rx_buff1[0]:x2}\n{rx_buff1[1]:x2}\n{rx_buff1[2]:x2}\n{rx_buff1[3]:x2}\n{rx_buff1[4]:x2}\n" +
                  $"{rx_buff1[5]:x2}\n{rx_buff1[6]:x2}\n{rx_buff1[7]:x2}\n{rx_buff1[8]:x2}\n{rx_buff1[9]:x2}\n{rx_buff1[10]:x2}\n{rx_buff1[11]:x2}\n" +
                  $"{rx_buff1[12]:x2}\n{rx_buff1[13]:x2}\n{rx_buff1[14]:x2}\n");
+                
             }
             catch (Exception ex)
             {
@@ -75,10 +106,10 @@ namespace STM32Bootloading
         }
 
         private void Btn_All_Disable()
-        {           
-            TestMCU.Enabled = false;       
+        {
+            TestMCU.Enabled = false;
             Btn_Disconnect.Enabled = false;
-            Btn_Connect.Enabled = true;           
+            Btn_Connect.Enabled = true;
             ReadBank1.Enabled = false;
             erasebank2.Enabled = false;
             eraseban1.Enabled = false;
@@ -88,7 +119,6 @@ namespace STM32Bootloading
             writebank2.Enabled = false;
             VerifyBank1.Enabled = false;
             VerifyBank2.Enabled = false;
-            HextoBin.Enabled = true;
             BootManager.Enabled = false;
             BootMaster.Enabled = false;
         }
@@ -132,17 +162,17 @@ namespace STM32Bootloading
         }
         private void WriteManger_Disable()
         {
-            TestMCU.Enabled = false;           
-            ReadBank1.Enabled = false;          
+            TestMCU.Enabled = false;
+            ReadBank1.Enabled = false;
             eraseban1.Enabled = false;
             writebank1.Enabled = false;
-            ReadFile.Enabled = false;           
-            VerifyBank1.Enabled = false;           
+            ReadFile.Enabled = false;
+            VerifyBank1.Enabled = false;
             AutoProgramBank.Enabled = false;
             excutebank1.Enabled = false;
             BootMaster.Enabled = false;
             BootManager.Enabled = false;
-            
+
         }
 
         private void WriteManger_Enable()
@@ -152,19 +182,19 @@ namespace STM32Bootloading
             eraseban1.Enabled = true;
             writebank1.Enabled = true;
             ReadFile.Enabled = true;
-            VerifyBank1.Enabled = true;           
+            VerifyBank1.Enabled = true;
             excutebank1.Enabled = true;
         }
-        private void Btn_connectDevice_Disable()
-        {           
-            TestMCU.Enabled = false;   
+        private void Enable_Connect_BTNs()
+        {
+            TestMCU.Enabled = true;
             Btn_Disconnect.Enabled = true;
-            Btn_Connect.Enabled = false;        
+            Btn_Connect.Enabled = false;
             ReadBank1.Enabled = false;
             erasebank2.Enabled = false;
             eraseban1.Enabled = false;
             writebank1.Enabled = false;
-            ReadFile.Enabled = false;
+            ReadFile.Enabled = true;
             ReadBank2.Enabled = false;
             writebank2.Enabled = false;
             VerifyBank1.Enabled = false;
@@ -173,25 +203,72 @@ namespace STM32Bootloading
             BootManager.Enabled = true;
             BootSmartHandle.Enabled = true;
             AutoProgramBank.Enabled = false;
-            HextoBin.Enabled = true;
             BootManager.Enabled = true;
+            excutebank1.Enabled = false;
+            excutebank2.Enabled = false;
+
+            EraseSH.Enabled = true;
+            WriteSH.Enabled = true;
+        }
+
+        private void Enable_SH_BTNs()
+        {
+            TestMCU.Enabled = true;
+            ReadFile.Enabled = true;
+            Btn_Disconnect.Enabled = true;
+            Btn_Connect.Enabled = false;
+            BootMaster.Enabled = false;
+            BootManager.Enabled = false;
+            BootSmartHandle.Enabled = true;
+            ReadBank1.Enabled = false;
+            ReadBank2.Enabled = false;
+            erasebank2.Enabled = false;
+            eraseban1.Enabled = false;
+            writebank1.Enabled = false;
+            writebank2.Enabled = false;
+            VerifyBank1.Enabled = false;
+            VerifyBank2.Enabled = false;
+            AutoProgramBank.Enabled = false;
+            excutebank1.Enabled = false;
+            excutebank2.Enabled = false;
+
+            EraseSH.Enabled = true;
+            WriteSH.Enabled = true;
+        }
+
+        private void Enable_Manager_BTNs()
+        {
+            TestMCU.Enabled = true;
+            ReadFile.Enabled = true;
+            Btn_Disconnect.Enabled = true;
+            Btn_Connect.Enabled = false;
+            BootMaster.Enabled = false;
+            BootManager.Enabled = false;
+            BootSmartHandle.Enabled = true;
+            ReadBank1.Enabled = false;
+            ReadBank2.Enabled = false;
+            erasebank2.Enabled = false;
+            eraseban1.Enabled = false;
+            writebank1.Enabled = false;
+            writebank2.Enabled = false;
+            VerifyBank1.Enabled = false;
+            VerifyBank2.Enabled = false;
+            AutoProgramBank.Enabled = false;
             excutebank1.Enabled = false;
             excutebank2.Enabled = false;
         }
 
-
         private void Btn_All_Enable()
-        {            
-            TestMCU.Enabled = true;       
+        {
+            TestMCU.Enabled = true;
             Btn_Disconnect.Enabled = true;
-            Btn_Connect.Enabled = false;         
+            Btn_Connect.Enabled = false;
             ReadBank1.Enabled = true;
             erasebank2.Enabled = true;
             eraseban1.Enabled = true;
             writebank1.Enabled = true;
-            HextoBin.Enabled = true;
         }
-             
+
 
         private byte[] ReadPortBytes(int numberOfBytes)
         {
@@ -223,8 +300,8 @@ namespace STM32Bootloading
                 port.WriteTimeout = 5000;
                 port.ReadTimeout = 8000;
                 port.Open();
-                Btn_connectDevice_Disable();
-                
+                Enable_Connect_BTNs();
+
                 //MessageBox.Show("Port Connected");
             }
             catch (Exception ex)
@@ -232,7 +309,7 @@ namespace STM32Bootloading
                 MessageBox.Show(ex.Message);
             }
         }
-           
+
         private void ClearBuffer()
         {
             port.DiscardOutBuffer();
@@ -247,7 +324,6 @@ namespace STM32Bootloading
                 {
                     port.Close();
                     Btn_All_Disable();
-                    HextoBin.Enabled = true;
                     //MessageBox.Show("Port Disconnected");
                 }
                 else
@@ -263,57 +339,6 @@ namespace STM32Bootloading
             }
         }
 
-        
-        private void MasterConnct1()
-        {
-            try
-            {
-                byte[] dataByte = new byte[1];
-                System.Threading.Thread.Sleep(1000);
-                port.DiscardInBuffer();
-                port.DiscardOutBuffer();
-                dataByte[0] = 0x7F;//requst confirmatin for boot command
-                port.Write(dataByte, 0, 1);                
-                byte[] rx_buff = new byte[1];
-                rx_buff = ReadPortBytes(1);
-                if (rx_buff[0] == 0x79) //confirmatin
-                {
-                    TestMCU.Enabled = true;                    
-                    Btn_Disconnect.Enabled = true;
-                    Btn_Connect.Enabled = false;
-                    ReadBank1.Enabled = true;                    
-                    eraseban1.Enabled = true;
-                    writebank1.Enabled = false;
-                    ReadFile.Enabled = true;                    
-                    VerifyBank1.Enabled = false;
-                    VerifyBank2.Enabled = false;
-                    HextoBin.Enabled = true;
-                    excutebank1.Enabled = true;
-                    excutebank2.Enabled = true;
-                    erasebank2.Enabled = true;
-                    ReadBank2.Enabled = true;
-                    System.Threading.Thread.Sleep(10);
-                    byte[] dataByte8 = new byte[2];                    
-                    dataByte8[0] = 0x01; //request Ver                  
-                    dataByte8[1] = 0xFE;
-                    port.Write(dataByte8, 0, 2);
-                    byte[] rx_buff1 = new byte[5];
-                    rx_buff1 = ReadPortBytes(5);
-                    txt_DevVersion.Text = rx_buff1[1].ToString("x");
-                    System.Threading.Thread.Sleep(10);
-                    dataByte8[0] = 0x02;//request ID
-                    dataByte8[1] = 0xFD;
-                    port.Write(dataByte8, 0, 2);
-                    rx_buff1 = ReadPortBytes(5);
-                    Numeric_Erros.Text = rx_buff1[3].ToString("x");
-                }
-                else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
-            }
-            catch
-            {
-                MessageBox.Show($"Nothing");
-            }
-        }
 
         private void Managerconnct()
         {
@@ -328,30 +353,29 @@ namespace STM32Bootloading
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)//confirmation
                 {
-                    TestMCU.Enabled = true;                    
+                    TestMCU.Enabled = true;
                     Btn_Disconnect.Enabled = true;
                     Btn_Connect.Enabled = false;
-                    ReadBank1.Enabled = true;                    
+                    ReadBank1.Enabled = true;
                     eraseban1.Enabled = true;
                     writebank1.Enabled = false;
-                    ReadFile.Enabled = true;                    
+                    ReadFile.Enabled = true;
                     VerifyBank1.Enabled = false;
                     VerifyBank2.Enabled = false;
-                    HextoBin.Enabled = true;
                     excutebank1.Enabled = false;
                     excutebank2.Enabled = false;
-                    byte[] dataByte8 = new byte[2];                   
+                    byte[] dataByte8 = new byte[2];
                     dataByte8[0] = 0x01; //request Ver                   
-                    port.Write(dataByte8, 0, 1);                    
+                    port.Write(dataByte8, 0, 1);
                     dataByte8[0] = 0xFE;
                     port.Write(dataByte8, 0, 1);
                     byte[] rx_buff1 = new byte[5];
                     rx_buff1 = ReadPortBytes(5);
-                    txt_DevVersion.Text = rx_buff1[1].ToString("x");                    
+                    txt_DevVersion.Text = rx_buff1[1].ToString("x");
                     dataByte8[0] = 0x02;//request ID                    
-                    port.Write(dataByte8, 0, 1);                    
+                    port.Write(dataByte8, 0, 1);
                     dataByte8[0] = 0xFD;
-                    port.Write(dataByte8, 0, 1);                    
+                    port.Write(dataByte8, 0, 1);
                     rx_buff1 = ReadPortBytes(5);
                     Numeric_Erros.Text = rx_buff1[3].ToString("x");
                 }
@@ -367,7 +391,7 @@ namespace STM32Bootloading
             for (int j = 0; j < Num_frim; j++)
             {
                 byte[] dataByte = new byte[2];
-                dataByte[0] = 0x11;                
+                dataByte[0] = 0x11;
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xEE;
                 port.Write(dataByte, 0, 1);
@@ -392,8 +416,8 @@ namespace STM32Bootloading
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
                     {
-                        byte[] dataByte2 = new byte[2];                       
-                        dataByte2[0] = 0xFF;                        
+                        byte[] dataByte2 = new byte[2];
+                        dataByte2[0] = 0xFF;
                         port.Write(dataByte2, 0, 1);
                         dataByte2[0] = 0x00;
                         port.Write(dataByte2, 0, 1);
@@ -409,7 +433,7 @@ namespace STM32Bootloading
                         memoryContent += $"{rx_buff1[i]:X2} ";
                         // memoryContent += $" rx_buff1[{i}] = 0x{rx_buff1[i]:X2}";
                     }
-                    textBox1.Text = memoryContent;                    
+                    textBox1.Text = memoryContent;
                 }
                 else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
             }
@@ -418,7 +442,7 @@ namespace STM32Bootloading
 
 
         int Num_frim = 1;
-        
+
 
         private void ReadBank1_Click(object sender, EventArgs e)
         {
@@ -452,7 +476,7 @@ namespace STM32Bootloading
                         result ^= dataByte1[i];
                     }
                     tx_buff[4] = result;
-                    
+
                     port.Write(tx_buff, 0, 5);
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
@@ -474,7 +498,7 @@ namespace STM32Bootloading
                     {
                         memoryContent += $"{rx_buff1[i]:X2} ";
                     }
-                    textBox1.Text = memoryContent;                   
+                    textBox1.Text = memoryContent;
                     // MessageBox.Show(memoryContent, "Memory Content", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     // MessageBox.Show($"Read Memory: \n{rx_buff1[0]:x2}\n{rx_buff1[1]:x2}\n{rx_buff1[2]:x2}\n{rx_buff1[3]:x2}\n{rx_buff1[4]:x2}\n" +
                     // $"{rx_buff1[5]:x2}\n{rx_buff1[6]:x2}\n{rx_buff1[7]:x2}\n{rx_buff1[8]:x2}\n{rx_buff1[9]:x2}\n{rx_buff1[10]:x2}\n{rx_buff1[11]:x2}\n" +
@@ -488,8 +512,8 @@ namespace STM32Bootloading
         {
 
         }
-               
-        
+
+
 
         private void eraseban1_Click(object sender, EventArgs e)
         {
@@ -500,7 +524,7 @@ namespace STM32Bootloading
                 dataByte[0] = 0x44;//ERASE COMMAND               
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xBB;
-                port.Write(dataByte, 0, 1);               
+                port.Write(dataByte, 0, 1);
                 byte[] rx_buff = new byte[1];
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
@@ -532,14 +556,14 @@ namespace STM32Bootloading
                 dataByte[0] = 0x44;
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xBB;
-                port.Write(dataByte, 0, 1);               
+                port.Write(dataByte, 0, 1);
                 byte[] rx_buff = new byte[1];
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
                 {
                     byte result = 0;
                     byte NumPage = 0xFF;
-                    byte[] dataByte1 = new byte[3];                    
+                    byte[] dataByte1 = new byte[3];
                     dataByte1[0] = 0x00;
                     result ^= dataByte1[0];
                     port.Write(dataByte1, 0, 1);
@@ -584,17 +608,17 @@ namespace STM32Bootloading
         {
             byte[] dataByte = new byte[2];
             System.Threading.Thread.Sleep(100);
-            dataByte[0] = 0x44;            
+            dataByte[0] = 0x44;
             port.Write(dataByte, 0, 1);
             dataByte[0] = 0xBB;
-            port.Write(dataByte, 0, 1);            
+            port.Write(dataByte, 0, 1);
             byte[] rx_buff = new byte[1];
             rx_buff = ReadPortBytes(1);
             if (rx_buff[0] == 0x79)
             {
                 byte[] dataByte1 = new byte[3];
                 System.Threading.Thread.Sleep(100);
-                dataByte1[0] = 0xFF;              
+                dataByte1[0] = 0xFF;
                 port.Write(dataByte1, 0, 1);
                 dataByte1[0] = 0xFE;
                 port.Write(dataByte1, 0, 1);
@@ -604,21 +628,23 @@ namespace STM32Bootloading
                 if (rx_buff[0] == 0x79)
                 {
                     Read1();
-                   // MessageBox.Show("Successful Erase Bank1", "Successful Erase Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // MessageBox.Show("Successful Erase Bank1", "Successful Erase Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            else if (rx_buff[0] == 0x1f) { MessageBox.Show("Not Erase Bank1"); 
+            else if (rx_buff[0] == 0x1f)
+            {
+                MessageBox.Show("Not Erase Bank1");
             }
         }
         const int OneFrim = 256;
 
 
-        private void writebank_shh()
+        private int writebank_shh()
         {
-            string filePath = filePathTextBox.Text;
-
             try
             {
+                Tx_Text_Box.Text = "";
+                string filePath = filePathTextBox.Text;
                 // Read all lines from the hex file
                 string[] lines = File.ReadAllLines(filePath);
                 // Read the first 256 bytes from the hex file
@@ -626,7 +652,7 @@ namespace STM32Bootloading
                 int numberOfBytes = GetNumberOfBytes(filePath);
                 byte chunkSize = 0xff;
                 int chunkQty = (numberOfBytes / chunkSize) + 1;
-                
+
                 for (int chunkNumber = 0; chunkNumber <= chunkQty; chunkNumber++)
                 {
                     label4.Text = $"{((chunkNumber) * 100) / chunkQty}%";
@@ -638,136 +664,128 @@ namespace STM32Bootloading
                     cmdByte[0] = 0x31; //WRITE COMMAND                   
                     cmdByte[1] = 0xCE;
                     port.Write(cmdByte, 0, 2);
-                    System.Threading.Thread.Sleep(10);
-                    byte[] rx_buff = new byte[1];
-                    byte[] addr_reversed = new byte[5];
-                    rx_buff = ReadPortBytes(1);
-                    if (rx_buff[0] == 0x79)
+                    Tx_Text_Box.AppendText(BitConverter.ToString(cmdByte, 0, 2).Replace("-", "") + " - ");
+                    //Tx_Text_Box = cmdByte.ToString();
+                    if (!acknowledge())
                     {
-                        int number = 0x08000000 + (chunkNumber * 0x0100);//ADDRESS + CHECKSUM
-                        byte[] addr = BitConverter.GetBytes(number);
-                        addr_reversed[0] = addr[3];
-                        addr_reversed[1] = addr[2];
-                        addr_reversed[2] = addr[1];
-                        addr_reversed[3] = addr[0];
-                        byte checksum = 0x00;
-                        // int numberOfBytes = 4;
-                        for (int i = 0; i < 4; i++)
-                        {
-                            checksum ^= addr_reversed[i];
-                        }
-                        addr_reversed[4] = checksum;
-                        port.Write(addr_reversed, 0, addr_reversed.Length);
-                        System.Threading.Thread.Sleep(50);
-                        rx_buff = ReadPortBytes(1);
-                        if (rx_buff[0] != 0x79)
-                        {
-                            MessageBox.Show($"Failed programming");
-                            return;
-                        }
+                        return 0;
+                    }
 
-                        byte[] dataByte = new byte[1];
-                        dataByte[0] = chunkSize;
-                        dataByte = AppendByteArray(dataByte, fileBytes);
-                        dataByte = AppendByte(dataByte, xorResult);
-                        //port.Write(dataByte, 0, dataByte.Length);
-                        port.Write(dataByte, 0, dataByte.Length-100);
-                        System.Threading.Thread.Sleep(80);
-                        port.Write(dataByte, dataByte.Length - 100, 100);
-                        rx_buff = ReadPortBytes(1);
-                        if (rx_buff[0] == 0x79)
+                    int number = 0x08000000 + (chunkNumber * 0x0100);//ADDRESS + CHECKSUM
+                    byte[] addr = BitConverter.GetBytes(number);
+                    byte[] addr_reversed = new byte[5];
+                    addr_reversed[0] = addr[3];
+                    addr_reversed[1] = addr[2];
+                    addr_reversed[2] = addr[1];
+                    addr_reversed[3] = addr[0];
+                    byte checksum = 0x00;
+                    // int numberOfBytes = 4;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        checksum ^= addr_reversed[i];
+                    }
+                    addr_reversed[4] = checksum;
+                    port.Write(addr_reversed, 0, addr_reversed.Length);
+                    Tx_Text_Box.AppendText(BitConverter.ToString(addr_reversed, 0, 4).Replace("-", "") + " - ");
+                    Tx_Text_Box.AppendText(BitConverter.ToString(addr_reversed, 4, 1).Replace("-", "") + Environment.NewLine);
+                    if (!acknowledge())
+                    {
+                        return 0;
+                    }
+
+                    byte[] dataByte = new byte[1];
+                    dataByte[0] = chunkSize;
+                    dataByte = AppendByteArray(dataByte, fileBytes);
+                    dataByte = AppendByte(dataByte, xorResult);
+                    //port.Write(dataByte, 0, dataByte.Length);
+                    port.Write(dataByte, 0, dataByte.Length - 100);
+
+                    System.Threading.Thread.Sleep(70);
+                    port.Write(dataByte, dataByte.Length - 100, 100);
+                    if (!acknowledge())
+                    {
+                        return 0;
+                    }
+
+                    
+                    if (chunkQty == chunkNumber)
+                    {
+                        cmdByte[0] = 0x21; //WRITE GO command
+                        cmdByte[1] = 0xDE;
+                        port.Write(cmdByte, 0, 2);
+                        
+                        Tx_Text_Box.AppendText(Environment.NewLine + BitConverter.ToString(cmdByte, 0, 2).Replace("-", "") + " - ");
+                        if (!acknowledge())
                         {
-                            if (chunkQty == chunkNumber)
-                            {
-                                //Read1();
-                                cmdByte[0] = 0x21; //WRITE COMMAND                   
-                                cmdByte[1] = 0xDE;
-                                port.Write(cmdByte, 0, 2);
-                                rx_buff = ReadPortBytes(1);
-                                if (rx_buff[0] != 0x79)
-                                {
-                                    MessageBox.Show($"Failed programming");
-                                    return;
-                                }
-                                byte[] addrByte = new byte[5];
-                                addrByte[0] = 0x08; //WRITE COMMAND                   
-                                addrByte[1] = 0x00;
-                                addrByte[2] = 0x00;
-                                addrByte[3] = 0x00;
-                                addrByte[4] = 0x08;
-                                port.Write(addrByte, 0, 5);
-                                rx_buff = ReadPortBytes(1);
-                                if (rx_buff[0] != 0x79)
-                                {
-                                    MessageBox.Show($"Failed programming");
-                                    return;
-                                }
-                                MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                //   port.Write(dataToSend, 0, dataToSend.Length);
-                            }
+                            return 0;
                         }
-                        else //if (rx_buff[0] == 0x1f)
+                        byte[] addrByte = new byte[5];
+                        addrByte[0] = 0x08; //WRITE GO command start address                 
+                        addrByte[1] = 0x00;
+                        addrByte[2] = 0x00;
+                        addrByte[3] = 0x00;
+                        addrByte[4] = 0x08;
+                        port.Write(addrByte, 0, 5);
+                        Tx_Text_Box.AppendText(BitConverter.ToString(addrByte, 0, 5).Replace("-", "") + Environment.NewLine);
+                        if (!acknowledge())
                         {
-                            MessageBox.Show($"Not program - NAK {rx_buff[0]}");
+                            return 0;
                         }
                     }
                 }
-                excutebank1.Enabled = true;
+
+                return 1;
             }
             catch (Exception ex)
             {
                 //  resultsTextBox.AppendText($"An error occurred: {ex.Message}\r\n");
+                return 0;
             }
         }
-        int Erase_shh()
+        int erase_shh()
         {
+            Tx_Text_Box.Text = "";
             byte[] dataByte = new byte[2];
             int memory_size = 127;
             dataByte[0] = 0x44;
             dataByte[1] = 0xBB;
             port.Write(dataByte, 0, 2);
-            byte[] rx_buff = new byte[1];
-            rx_buff = ReadPortBytes(1);
-            if (rx_buff[0] == 0x1F)
+            Tx_Text_Box.AppendText(BitConverter.ToString(dataByte, 0, 2).Replace("-", "") + Environment.NewLine);
+            if (!acknowledge())
             {
-                return -1;
+                return 0;
             }
 
             System.Threading.Thread.Sleep(100);
             dataByte[0] = (byte)(memory_size / 256);
-            dataByte[1] = (byte)(memory_size%256);
+            dataByte[1] = (byte)(memory_size % 256);
             port.Write(dataByte, 0, 2);
+            Tx_Text_Box.AppendText(BitConverter.ToString(dataByte, 0, 2).Replace("-", "") + Environment.NewLine);
             byte[] dataByte1 = new byte[2];
             int page_number = 0;
             byte[] sumxor = new byte[1];
             sumxor[0] = dataByte[1];
             do
             {
-                dataByte1[0] = (byte)(page_number/256);
-                dataByte1[1] = (byte)(page_number%256);
+                dataByte1[0] = (byte)(page_number / 256);
+                dataByte1[1] = (byte)(page_number % 256);
                 //sumxor[0] += dataByte1[1];
                 //dataByte1 = BitConverter.GetBytes(page_number);
                 port.Write(dataByte1, 0, 2);
+                Tx_Text_Box.AppendText(BitConverter.ToString(dataByte1, 0, 2).Replace("-", "") + " ");
                 sumxor[0] ^= dataByte1[1];
                 page_number++;
-            } while (page_number <= memory_size + 1);
-
-                System.Threading.Thread.Sleep(10);
+            } while (page_number <= memory_size);
+            Tx_Text_Box.AppendText(Environment.NewLine);
+            System.Threading.Thread.Sleep(10);
             dataByte1[0] = sumxor[0];
             port.Write(dataByte1, 0, 1);
-            rx_buff[0] = 0;
-            rx_buff = ReadPortBytes(1);
-            if (rx_buff[0] == 0x79)
+            Tx_Text_Box.AppendText(Environment.NewLine + BitConverter.ToString(dataByte1, 0,1) + Environment.NewLine);
+            if (acknowledge())
             {
-            
-                MessageBox.Show("Successful Erase SHH", "Successful Erase SHH", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return 1;
             }
-            
-            if (rx_buff[0] == 0x1f)
-            {
-                MessageBox.Show("Not Erase SHH");
-            }
-            return 1;
+            return 0;
         }
         static byte[] AppendByte(byte[] byteArray, byte singleByte)
         {
@@ -845,7 +863,7 @@ namespace STM32Bootloading
             {
                 byte[] dataByte1 = new byte[3];
                 System.Threading.Thread.Sleep(100);
-                dataByte1[0] = 0xFF;                
+                dataByte1[0] = 0xFF;
                 port.Write(dataByte1, 0, 1);
                 dataByte1[0] = 0xFD;
                 port.Write(dataByte1, 0, 1);
@@ -854,8 +872,8 @@ namespace STM32Bootloading
                 rx_buff = ReadPortBytes(1);
                 if (rx_buff[0] == 0x79)
                 {
-                   
-                   // MessageBox.Show("Successful Erase Bank2", "Successful Erase Bank2", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // MessageBox.Show("Successful Erase Bank2", "Successful Erase Bank2", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // MessageBox.Show("Successful Erase Bank1");
                 }
@@ -866,8 +884,18 @@ namespace STM32Bootloading
             }
 
         }
-        
 
+        bool acknowledge()
+        {
+            byte[] rx_buff = new byte[1];
+            rx_buff = ReadPortBytes(1);
+            if (rx_buff[0] == 0x79)
+            {
+                RxTextBox.Text = BitConverter.ToString(rx_buff, 0, 1);
+                return true;
+            }
+            return false;
+        }
         private void writebank1_Click(object sender, EventArgs e)
         {
             string filePath = filePathTextBox.Text;
@@ -888,7 +916,7 @@ namespace STM32Bootloading
                     byte xorResult = CalculateXOR(fileBytes);
                     // Display the result
                     //  resultsTextBox.AppendText($"XOR of the first 256 bytes in {Path.GetFileName(filePath)}: 0x{xorResult:X2}\r\n");
-                    byte[] dataByte3 = new byte[2];                                       
+                    byte[] dataByte3 = new byte[2];
                     dataByte3[0] = 0x31; //WRITE COMMAND                   
                     dataByte3[1] = 0xCE;
                     port.Write(dataByte3, 0, 2);
@@ -980,8 +1008,8 @@ namespace STM32Bootloading
                     byte xorResult = CalculateXOR(fileBytes);
                     // Display the result
                     //  resultsTextBox.AppendText($"XOR of the first 256 bytes in {Path.GetFileName(filePath)}: 0x{xorResult:X2}\r\n");
-                    byte[] dataByte3 = new byte[2];                                       
-                    dataByte3[0] = 0x31;                   
+                    byte[] dataByte3 = new byte[2];
+                    dataByte3[0] = 0x31;
                     port.Write(dataByte3, 0, 1);
                     dataByte3[0] = 0xCE;
                     port.Write(dataByte3, 0, 1);
@@ -1009,7 +1037,7 @@ namespace STM32Bootloading
                         {
                             byte[] dataByte5 = new byte[1];
                             byte[] dataByte6 = new byte[OneFrim];
-                            byte[] dataByte7 = new byte[1];                            
+                            byte[] dataByte7 = new byte[1];
                             dataByte5[0] = 0xFF;
                             dataByte7[0] = xorResult;
                             port.Write(dataByte5, 0, 1);
@@ -1026,7 +1054,7 @@ namespace STM32Bootloading
                                 if (j == chunkNumber)
                                 {
                                     Read1();
-                                   // MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    // MessageBox.Show("Successful Program Bank1", "Successful Program Bank1", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     //   port.Write(dataToSend, 0, dataToSend.Length);
                                 }
                             }
@@ -1053,7 +1081,7 @@ namespace STM32Bootloading
                 return (int)fs.Length;
             }
         }
-       
+
 
         private void ReadFile_Click(object sender, EventArgs e)
         {
@@ -1158,7 +1186,7 @@ namespace STM32Bootloading
         private void label2_Click(object sender, EventArgs e)
         {
 
-        }   
+        }
 
         void Read2()
         {
@@ -1192,8 +1220,8 @@ namespace STM32Bootloading
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
                     {
-                        byte[] dataByte2 = new byte[2];                       
-                        dataByte2[0] = 0xFF;                        
+                        byte[] dataByte2 = new byte[2];
+                        dataByte2[0] = 0xFF;
                         port.Write(dataByte2, 0, 1);
                         dataByte2[0] = 0x00;
                         port.Write(dataByte2, 0, 1);
@@ -1206,7 +1234,7 @@ namespace STM32Bootloading
                     // for (int i = 0  ; i < rx_buff1.Length ; i++)
                     for (int i = 0; i < 256; i++)
                     {
-                        memoryContent += $"{rx_buff1[i]:X2} ";                        
+                        memoryContent += $"{rx_buff1[i]:X2} ";
 
                     }
                     textBox2.Text = memoryContent;
@@ -1215,7 +1243,7 @@ namespace STM32Bootloading
                 else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
             }
         }
-       
+
 
         private void ReadBank2_Click(object sender, EventArgs e)
         {
@@ -1249,7 +1277,7 @@ namespace STM32Bootloading
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
                     {
-                        byte[] dataByte2 = new byte[2];                        
+                        byte[] dataByte2 = new byte[2];
                         dataByte2[0] = 0xFF;  //NUMBER OF BYTE                      
                         port.Write(dataByte2, 0, 1);
                         dataByte2[0] = 0x00;
@@ -1263,7 +1291,7 @@ namespace STM32Bootloading
                     // for (int i = 0  ; i < rx_buff1.Length ; i++)
                     for (int i = 0; i < 256; i++)
                     {
-                        memoryContent += $"{rx_buff1[i]:X2} ";                        
+                        memoryContent += $"{rx_buff1[i]:X2} ";
 
                     }
                     textBox2.Text = memoryContent;
@@ -1275,7 +1303,7 @@ namespace STM32Bootloading
 
 
 
-       
+
 
         private void writebank2_Click(object sender, EventArgs e)
         {
@@ -1327,7 +1355,7 @@ namespace STM32Bootloading
                         {
                             byte[] dataByte5 = new byte[1];
                             byte[] dataByte6 = new byte[OneFrim];
-                            byte[] dataByte7 = new byte[1];                            
+                            byte[] dataByte7 = new byte[1];
                             dataByte5[0] = 0xFF;// NUMBER OF BYTE
                             dataByte7[0] = xorResult;//CHECKSUM
                             port.Write(dataByte5, 0, 1);
@@ -1366,17 +1394,7 @@ namespace STM32Bootloading
             }
         }
 
-        private void textBox1_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
         private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -1394,7 +1412,7 @@ namespace STM32Bootloading
 
             return true;
         }
-        
+
 
         private void VerifyBank1_Click(object sender, EventArgs e)
         {
@@ -1404,11 +1422,11 @@ namespace STM32Bootloading
             //string filePath = filePathTextBox.Text;
             for (int j = 0; j <= NumPage; j++)
             {
-                label5.Text = $"{(j * 100) / NumPage}%";                
+                label5.Text = $"{(j * 100) / NumPage}%";
                 // Read all lines from the hex file
-                string[] lines = File.ReadAllLines(filePath);                                
+                string[] lines = File.ReadAllLines(filePath);
                 byte[] fileBytes = ReadNext256Bytes(filePath, j);
-                byte[] dataByte = new byte[2];                
+                byte[] dataByte = new byte[2];
                 dataByte[0] = 0x11;  //read command               
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xEE;
@@ -1434,27 +1452,27 @@ namespace STM32Bootloading
                     rx_buff = ReadPortBytes(1);
                     if (rx_buff[0] == 0x79)
                     {
-                        byte[] dataByte2 = new byte[2];                        
+                        byte[] dataByte2 = new byte[2];
                         dataByte2[0] = 0xFF; //NUMBER OF BYTE                       
                         port.Write(dataByte2, 0, 1);
                         dataByte2[0] = 0x00;
                         port.Write(dataByte2, 0, 1);
                     }
-                        byte[] rx_buff9 = new byte[1];
-                        rx_buff9 = ReadPortBytes(1);
-                        byte[] rx_buff1 = new byte[256];      
-                        rx_buff1 = ReadPortBytes(256);
-                    if (ByteArraysEqual(fileBytes, rx_buff1) && (NumPage-1 == j))
+                    byte[] rx_buff9 = new byte[1];
+                    rx_buff9 = ReadPortBytes(1);
+                    byte[] rx_buff1 = new byte[256];
+                    rx_buff1 = ReadPortBytes(256);
+                    if (ByteArraysEqual(fileBytes, rx_buff1) && (NumPage - 1 == j))
                     {
                         MessageBox.Show("Verify Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    
-                    else if(!ByteArraysEqual(fileBytes, rx_buff1))
+
+                    else if (!ByteArraysEqual(fileBytes, rx_buff1))
                     {
                         MessageBox.Show("Verify Fail", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         break;
                     }
-                
+
                 }
                 else if (rx_buff[0] == 0x1F) MessageBox.Show($"0x1F");
             }
@@ -1471,8 +1489,8 @@ namespace STM32Bootloading
                 // Read all lines from the hex file
                 string[] lines = File.ReadAllLines(filePath);
                 byte[] fileBytes = ReadNext256Bytes(filePath, j);
-                byte[] dataByte = new byte[2];               
-                dataByte[0] = 0x11;                
+                byte[] dataByte = new byte[2];
+                dataByte[0] = 0x11;
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xEE;
                 port.Write(dataByte, 0, 1);
@@ -1498,7 +1516,7 @@ namespace STM32Bootloading
                     if (rx_buff[0] == 0x79)
                     {
                         byte[] dataByte2 = new byte[2];
-                        dataByte2[0] = 0xFF;                       
+                        dataByte2[0] = 0xFF;
                         port.Write(dataByte2, 0, 1);
                         dataByte2[0] = 0x00;
                         port.Write(dataByte2, 0, 1);
@@ -1523,7 +1541,7 @@ namespace STM32Bootloading
             }
         }
 
-           
+
 
         private void VerifyBank2_Click(object sender, EventArgs e)
         {
@@ -1537,7 +1555,7 @@ namespace STM32Bootloading
                 // Read all lines from the hex file
                 string[] lines = File.ReadAllLines(filePath);
                 byte[] fileBytes = ReadNext256Bytes(filePath, j);
-                byte[] dataByte = new byte[2];                
+                byte[] dataByte = new byte[2];
                 dataByte[0] = 0x11;//command Read                
                 port.Write(dataByte, 0, 1);
                 dataByte[0] = 0xEE;
@@ -1595,7 +1613,7 @@ namespace STM32Bootloading
 
         }
 
-       
+
         private void BootMaster_Click(object sender, EventArgs e)
         {
             try
@@ -1617,20 +1635,7 @@ namespace STM32Bootloading
                 //        break;
                 //    }
                 //}
-                if (device_connection == 1)
-                {
-                    port.DiscardInBuffer();
-                    port.DiscardOutBuffer();
-                    BootMaster.Enabled = false;
-                    BootManager.Enabled = false;
-                    BootSmartHandle.Enabled = false;
-                    System.Threading.Thread.Sleep(4000);
-                    MasterConnct1();
-                }
-                else
-                {
-                    MessageBox.Show($"Master CPU not answer");
-                }
+                
 
             }
             catch (Exception ex)
@@ -1644,21 +1649,12 @@ namespace STM32Bootloading
 
         }
 
-     
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-        
 
         private void AutoProgramBank_Click(object sender, EventArgs e)
         {
-            Erase_shh();
+
             //Erase1();
-            writebank_shh();
+
             //Verify1();
         }
 
@@ -1667,7 +1663,7 @@ namespace STM32Bootloading
 
         }
 
-        
+
 
         private void HextoBin_Click(object sender, EventArgs e)
         {
@@ -1746,7 +1742,7 @@ namespace STM32Bootloading
 
         }
 
-       
+
 
 
         private void excutebank1_Click(object sender, EventArgs e)
@@ -1779,7 +1775,7 @@ namespace STM32Bootloading
             rx_buff = ReadPortBytes(1);
             if (rx_buff[0] == 0x79)
             {
-                Btn_connectDevice_Disable();
+                Enable_Connect_BTNs();
                 MessageBox.Show("Reset Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -1793,11 +1789,10 @@ namespace STM32Bootloading
 
         private void BootSmartHandle_Click(object sender, EventArgs e)
         {
-            string msg = "$shhBootModeBT\n\r"; //request boot
-            MessageBox.Show($"Wait a few seconds");
+            string msg = "$shhBootModeBT"; //request boot
+            MessageBox.Show($"Sent $shhBootModeBT \n Wait a few seconds");
             port.Write(msg);
-            port.ReadTimeout = 1000;
-            MasterConnct1();
+            Enable_SH_BTNs();
         }
 
         private void BootManager_Click(object sender, EventArgs e)//TODO
@@ -1837,7 +1832,6 @@ namespace STM32Bootloading
                 writebank2.Enabled = false;
                 VerifyBank1.Enabled = false;
                 VerifyBank2.Enabled = false;
-                HextoBin.Enabled = true;
                 excutebank1.Enabled = false;
                 AutoProgramBank.Enabled = false;
                 // }
@@ -1854,7 +1848,7 @@ namespace STM32Bootloading
 
             }
         }
-        
+
 
         private void excutebank2_Click(object sender, EventArgs e)
         {
@@ -1886,7 +1880,7 @@ namespace STM32Bootloading
             rx_buff = ReadPortBytes(1);
             if (rx_buff[0] == 0x79)
             {
-                Btn_connectDevice_Disable();
+                Enable_Connect_BTNs();
                 MessageBox.Show("Reset Ok", "Verification Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -1897,9 +1891,31 @@ namespace STM32Bootloading
 
         }
 
+        private void WriteSH_Click(object sender, EventArgs e)
+        {
+            if (writebank_shh() == 1)
+            {
+                MessageBox.Show($"Smart Handle Write Successful");
+            }
+            else
+            {
+                MessageBox.Show($"Smart Handle Write Failed");
+            }
+        }
 
+        private void EraseSH_Click(object sender, EventArgs e)
+        {
+            if (erase_shh() == 1)
+            {
+                MessageBox.Show($"Smart Handle Erase Successful");
+            }
+            else
+            {
+                MessageBox.Show($"Smart Handle Erase Failed");
+            }
+        }
     }
 }
-    
+
 
 

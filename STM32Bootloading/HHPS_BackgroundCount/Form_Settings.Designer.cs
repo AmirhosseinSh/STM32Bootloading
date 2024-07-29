@@ -63,6 +63,14 @@
             this.BootManager = new System.Windows.Forms.Button();
             this.excutebank2 = new System.Windows.Forms.Button();
             this.BootSmartHandle = new System.Windows.Forms.Button();
+            this.EraseSH = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.WriteSH = new System.Windows.Forms.Button();
+            this.RxTextBox = new System.Windows.Forms.TextBox();
+            this.Tx_Text_Box = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // TestMCU
@@ -71,7 +79,7 @@
             this.TestMCU.Enabled = false;
             this.TestMCU.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TestMCU.ForeColor = System.Drawing.Color.SteelBlue;
-            this.TestMCU.Location = new System.Drawing.Point(495, 289);
+            this.TestMCU.Location = new System.Drawing.Point(32, 98);
             this.TestMCU.Margin = new System.Windows.Forms.Padding(4);
             this.TestMCU.Name = "TestMCU";
             this.TestMCU.Size = new System.Drawing.Size(159, 40);
@@ -184,10 +192,10 @@
             this.ReadBank1.Enabled = false;
             this.ReadBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadBank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.ReadBank1.Location = new System.Drawing.Point(66, 240);
+            this.ReadBank1.Location = new System.Drawing.Point(455, 317);
             this.ReadBank1.Margin = new System.Windows.Forms.Padding(4);
             this.ReadBank1.Name = "ReadBank1";
-            this.ReadBank1.Size = new System.Drawing.Size(181, 40);
+            this.ReadBank1.Size = new System.Drawing.Size(145, 40);
             this.ReadBank1.TabIndex = 64;
             this.ReadBank1.Text = "Read Bank1";
             this.ReadBank1.UseVisualStyleBackColor = false;
@@ -199,10 +207,10 @@
             this.erasebank2.Enabled = false;
             this.erasebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.erasebank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.erasebank2.Location = new System.Drawing.Point(237, 372);
+            this.erasebank2.Location = new System.Drawing.Point(611, 224);
             this.erasebank2.Margin = new System.Windows.Forms.Padding(4);
             this.erasebank2.Name = "erasebank2";
-            this.erasebank2.Size = new System.Drawing.Size(156, 40);
+            this.erasebank2.Size = new System.Drawing.Size(145, 40);
             this.erasebank2.TabIndex = 69;
             this.erasebank2.Text = "Erase Bank2";
             this.erasebank2.UseVisualStyleBackColor = false;
@@ -214,10 +222,10 @@
             this.eraseban1.Enabled = false;
             this.eraseban1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.eraseban1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.eraseban1.Location = new System.Drawing.Point(66, 372);
+            this.eraseban1.Location = new System.Drawing.Point(455, 224);
             this.eraseban1.Margin = new System.Windows.Forms.Padding(4);
             this.eraseban1.Name = "eraseban1";
-            this.eraseban1.Size = new System.Drawing.Size(156, 40);
+            this.eraseban1.Size = new System.Drawing.Size(145, 40);
             this.eraseban1.TabIndex = 70;
             this.eraseban1.Text = "Erase Bank1";
             this.eraseban1.UseVisualStyleBackColor = false;
@@ -229,10 +237,10 @@
             this.writebank1.Enabled = false;
             this.writebank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.writebank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.writebank1.Location = new System.Drawing.Point(66, 283);
+            this.writebank1.Location = new System.Drawing.Point(455, 360);
             this.writebank1.Margin = new System.Windows.Forms.Padding(4);
             this.writebank1.Name = "writebank1";
-            this.writebank1.Size = new System.Drawing.Size(181, 40);
+            this.writebank1.Size = new System.Drawing.Size(145, 40);
             this.writebank1.TabIndex = 71;
             this.writebank1.Text = "Write Bank1";
             this.writebank1.UseVisualStyleBackColor = false;
@@ -245,7 +253,7 @@
             // 
             // filePathTextBox
             // 
-            this.filePathTextBox.Location = new System.Drawing.Point(66, 328);
+            this.filePathTextBox.Location = new System.Drawing.Point(611, 72);
             this.filePathTextBox.Multiline = true;
             this.filePathTextBox.Name = "filePathTextBox";
             this.filePathTextBox.Size = new System.Drawing.Size(190, 40);
@@ -256,12 +264,13 @@
             // 
             this.ReadFile.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ReadFile.Enabled = false;
-            this.ReadFile.ForeColor = System.Drawing.Color.Brown;
-            this.ReadFile.Location = new System.Drawing.Point(282, 334);
+            this.ReadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReadFile.ForeColor = System.Drawing.Color.Chocolate;
+            this.ReadFile.Location = new System.Drawing.Point(483, 72);
             this.ReadFile.Name = "ReadFile";
             this.ReadFile.Size = new System.Drawing.Size(111, 34);
             this.ReadFile.TabIndex = 75;
-            this.ReadFile.Text = "Read File";
+            this.ReadFile.Text = "Read Bin";
             this.ReadFile.UseVisualStyleBackColor = false;
             this.ReadFile.Click += new System.EventHandler(this.ReadFile_Click);
             // 
@@ -271,10 +280,10 @@
             this.ReadBank2.Enabled = false;
             this.ReadBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadBank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.ReadBank2.Location = new System.Drawing.Point(267, 240);
+            this.ReadBank2.Location = new System.Drawing.Point(611, 317);
             this.ReadBank2.Margin = new System.Windows.Forms.Padding(4);
             this.ReadBank2.Name = "ReadBank2";
-            this.ReadBank2.Size = new System.Drawing.Size(181, 40);
+            this.ReadBank2.Size = new System.Drawing.Size(145, 40);
             this.ReadBank2.TabIndex = 76;
             this.ReadBank2.Text = "Read Bank2";
             this.ReadBank2.UseVisualStyleBackColor = false;
@@ -286,10 +295,10 @@
             this.writebank2.Enabled = false;
             this.writebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.writebank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.writebank2.Location = new System.Drawing.Point(267, 284);
+            this.writebank2.Location = new System.Drawing.Point(611, 360);
             this.writebank2.Margin = new System.Windows.Forms.Padding(4);
             this.writebank2.Name = "writebank2";
-            this.writebank2.Size = new System.Drawing.Size(181, 40);
+            this.writebank2.Size = new System.Drawing.Size(145, 40);
             this.writebank2.TabIndex = 77;
             this.writebank2.Text = "Write Bank2";
             this.writebank2.UseVisualStyleBackColor = false;
@@ -297,18 +306,17 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(486, 30);
+            this.textBox1.Location = new System.Drawing.Point(844, 43);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(183, 187);
             this.textBox1.TabIndex = 78;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(492, 10);
+            this.label1.Location = new System.Drawing.Point(850, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 16);
             this.label1.TabIndex = 79;
@@ -317,18 +325,17 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(693, 32);
+            this.textBox2.Location = new System.Drawing.Point(1051, 45);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox2.Size = new System.Drawing.Size(179, 180);
             this.textBox2.TabIndex = 80;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(708, 10);
+            this.label3.Location = new System.Drawing.Point(1066, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(97, 16);
             this.label3.TabIndex = 81;
@@ -341,10 +348,10 @@
             this.VerifyBank1.Enabled = false;
             this.VerifyBank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerifyBank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.VerifyBank1.Location = new System.Drawing.Point(66, 195);
+            this.VerifyBank1.Location = new System.Drawing.Point(455, 272);
             this.VerifyBank1.Margin = new System.Windows.Forms.Padding(4);
             this.VerifyBank1.Name = "VerifyBank1";
-            this.VerifyBank1.Size = new System.Drawing.Size(181, 40);
+            this.VerifyBank1.Size = new System.Drawing.Size(145, 40);
             this.VerifyBank1.TabIndex = 82;
             this.VerifyBank1.Text = "Verify Bank1";
             this.VerifyBank1.UseVisualStyleBackColor = false;
@@ -356,10 +363,10 @@
             this.VerifyBank2.Enabled = false;
             this.VerifyBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.VerifyBank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.VerifyBank2.Location = new System.Drawing.Point(267, 195);
+            this.VerifyBank2.Location = new System.Drawing.Point(611, 272);
             this.VerifyBank2.Margin = new System.Windows.Forms.Padding(4);
             this.VerifyBank2.Name = "VerifyBank2";
-            this.VerifyBank2.Size = new System.Drawing.Size(181, 40);
+            this.VerifyBank2.Size = new System.Drawing.Size(145, 40);
             this.VerifyBank2.TabIndex = 83;
             this.VerifyBank2.Text = "Verify Bank2";
             this.VerifyBank2.UseVisualStyleBackColor = false;
@@ -371,19 +378,19 @@
             this.BootMaster.Enabled = false;
             this.BootMaster.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BootMaster.ForeColor = System.Drawing.Color.SeaGreen;
-            this.BootMaster.Location = new System.Drawing.Point(67, 76);
+            this.BootMaster.Location = new System.Drawing.Point(455, 174);
             this.BootMaster.Margin = new System.Windows.Forms.Padding(4);
             this.BootMaster.Name = "BootMaster";
-            this.BootMaster.Size = new System.Drawing.Size(180, 40);
+            this.BootMaster.Size = new System.Drawing.Size(188, 40);
             this.BootMaster.TabIndex = 84;
-            this.BootMaster.Text = "Program Master";
+            this.BootMaster.Text = "Connect Master";
             this.BootMaster.UseVisualStyleBackColor = false;
             this.BootMaster.Click += new System.EventHandler(this.BootMaster_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(22, 297);
+            this.label4.Location = new System.Drawing.Point(904, 373);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 16);
             this.label4.TabIndex = 85;
@@ -393,12 +400,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 211);
+            this.label5.Location = new System.Drawing.Point(904, 330);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(26, 16);
             this.label5.TabIndex = 86;
             this.label5.Text = "0%";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // AutoProgramBank
             // 
@@ -406,7 +412,7 @@
             this.AutoProgramBank.Enabled = false;
             this.AutoProgramBank.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AutoProgramBank.ForeColor = System.Drawing.Color.DarkCyan;
-            this.AutoProgramBank.Location = new System.Drawing.Point(495, 219);
+            this.AutoProgramBank.Location = new System.Drawing.Point(853, 232);
             this.AutoProgramBank.Margin = new System.Windows.Forms.Padding(4);
             this.AutoProgramBank.Name = "AutoProgramBank";
             this.AutoProgramBank.Size = new System.Drawing.Size(159, 62);
@@ -421,7 +427,7 @@
             this.button12.Enabled = false;
             this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button12.ForeColor = System.Drawing.Color.DarkCyan;
-            this.button12.Location = new System.Drawing.Point(693, 219);
+            this.button12.Location = new System.Drawing.Point(1051, 232);
             this.button12.Margin = new System.Windows.Forms.Padding(4);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(167, 62);
@@ -435,11 +441,11 @@
             this.HextoBin.BackColor = System.Drawing.SystemColors.Control;
             this.HextoBin.Enabled = false;
             this.HextoBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HextoBin.ForeColor = System.Drawing.Color.SteelBlue;
-            this.HextoBin.Location = new System.Drawing.Point(693, 289);
+            this.HextoBin.ForeColor = System.Drawing.Color.Chocolate;
+            this.HextoBin.Location = new System.Drawing.Point(483, 22);
             this.HextoBin.Margin = new System.Windows.Forms.Padding(4);
             this.HextoBin.Name = "HextoBin";
-            this.HextoBin.Size = new System.Drawing.Size(167, 40);
+            this.HextoBin.Size = new System.Drawing.Size(111, 30);
             this.HextoBin.TabIndex = 89;
             this.HextoBin.Text = "Hex to Bin";
             this.HextoBin.UseVisualStyleBackColor = false;
@@ -447,7 +453,7 @@
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(682, 336);
+            this.textBox3.Location = new System.Drawing.Point(611, 22);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(190, 40);
@@ -460,10 +466,10 @@
             this.excutebank1.Enabled = false;
             this.excutebank1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.excutebank1.ForeColor = System.Drawing.Color.SteelBlue;
-            this.excutebank1.Location = new System.Drawing.Point(66, 414);
+            this.excutebank1.Location = new System.Drawing.Point(455, 408);
             this.excutebank1.Margin = new System.Windows.Forms.Padding(4);
             this.excutebank1.Name = "excutebank1";
-            this.excutebank1.Size = new System.Drawing.Size(156, 40);
+            this.excutebank1.Size = new System.Drawing.Size(145, 40);
             this.excutebank1.TabIndex = 91;
             this.excutebank1.Text = "Excute Bank1";
             this.excutebank1.UseVisualStyleBackColor = false;
@@ -475,12 +481,12 @@
             this.BootManager.Enabled = false;
             this.BootManager.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BootManager.ForeColor = System.Drawing.Color.SeaGreen;
-            this.BootManager.Location = new System.Drawing.Point(268, 76);
+            this.BootManager.Location = new System.Drawing.Point(230, 174);
             this.BootManager.Margin = new System.Windows.Forms.Padding(4);
             this.BootManager.Name = "BootManager";
-            this.BootManager.Size = new System.Drawing.Size(180, 40);
+            this.BootManager.Size = new System.Drawing.Size(192, 40);
             this.BootManager.TabIndex = 92;
-            this.BootManager.Text = "Program Manager";
+            this.BootManager.Text = "Connect Manager";
             this.BootManager.UseVisualStyleBackColor = false;
             this.BootManager.Click += new System.EventHandler(this.BootManager_Click);
             // 
@@ -490,10 +496,10 @@
             this.excutebank2.Enabled = false;
             this.excutebank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.excutebank2.ForeColor = System.Drawing.Color.SteelBlue;
-            this.excutebank2.Location = new System.Drawing.Point(237, 414);
+            this.excutebank2.Location = new System.Drawing.Point(611, 408);
             this.excutebank2.Margin = new System.Windows.Forms.Padding(4);
             this.excutebank2.Name = "excutebank2";
-            this.excutebank2.Size = new System.Drawing.Size(156, 40);
+            this.excutebank2.Size = new System.Drawing.Size(145, 40);
             this.excutebank2.TabIndex = 93;
             this.excutebank2.Text = "Excute Bank2";
             this.excutebank2.UseVisualStyleBackColor = false;
@@ -505,20 +511,116 @@
             this.BootSmartHandle.Enabled = false;
             this.BootSmartHandle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BootSmartHandle.ForeColor = System.Drawing.Color.SeaGreen;
-            this.BootSmartHandle.Location = new System.Drawing.Point(66, 124);
+            this.BootSmartHandle.Location = new System.Drawing.Point(32, 174);
             this.BootSmartHandle.Margin = new System.Windows.Forms.Padding(4);
             this.BootSmartHandle.Name = "BootSmartHandle";
-            this.BootSmartHandle.Size = new System.Drawing.Size(180, 40);
+            this.BootSmartHandle.Size = new System.Drawing.Size(190, 40);
             this.BootSmartHandle.TabIndex = 94;
-            this.BootSmartHandle.Text = "Program SH";
+            this.BootSmartHandle.Text = "Connect SH";
             this.BootSmartHandle.UseVisualStyleBackColor = false;
             this.BootSmartHandle.Click += new System.EventHandler(this.BootSmartHandle_Click);
+            // 
+            // EraseSH
+            // 
+            this.EraseSH.BackColor = System.Drawing.SystemColors.Control;
+            this.EraseSH.Enabled = false;
+            this.EraseSH.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EraseSH.ForeColor = System.Drawing.Color.SteelBlue;
+            this.EraseSH.Location = new System.Drawing.Point(32, 222);
+            this.EraseSH.Margin = new System.Windows.Forms.Padding(4);
+            this.EraseSH.Name = "EraseSH";
+            this.EraseSH.Size = new System.Drawing.Size(156, 40);
+            this.EraseSH.TabIndex = 95;
+            this.EraseSH.Text = "Erase";
+            this.EraseSH.UseVisualStyleBackColor = false;
+            this.EraseSH.Click += new System.EventHandler(this.EraseSH_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(805, 373);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(78, 16);
+            this.label7.TabIndex = 96;
+            this.label7.Text = "Write Status";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(805, 330);
+            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(81, 16);
+            this.label8.TabIndex = 97;
+            this.label8.Text = "Read Status";
+            // 
+            // WriteSH
+            // 
+            this.WriteSH.BackColor = System.Drawing.SystemColors.Control;
+            this.WriteSH.Enabled = false;
+            this.WriteSH.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.WriteSH.ForeColor = System.Drawing.Color.SteelBlue;
+            this.WriteSH.Location = new System.Drawing.Point(32, 360);
+            this.WriteSH.Margin = new System.Windows.Forms.Padding(4);
+            this.WriteSH.Name = "WriteSH";
+            this.WriteSH.Size = new System.Drawing.Size(156, 40);
+            this.WriteSH.TabIndex = 98;
+            this.WriteSH.Text = "Write";
+            this.WriteSH.UseVisualStyleBackColor = false;
+            this.WriteSH.Click += new System.EventHandler(this.WriteSH_Click);
+            // 
+            // RxTextBox
+            // 
+            this.RxTextBox.Location = new System.Drawing.Point(940, 409);
+            this.RxTextBox.Multiline = true;
+            this.RxTextBox.Name = "RxTextBox";
+            this.RxTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.RxTextBox.Size = new System.Drawing.Size(278, 76);
+            this.RxTextBox.TabIndex = 99;
+            // 
+            // Tx_Text_Box
+            // 
+            this.Tx_Text_Box.Location = new System.Drawing.Point(940, 491);
+            this.Tx_Text_Box.Multiline = true;
+            this.Tx_Text_Box.Name = "Tx_Text_Box";
+            this.Tx_Text_Box.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.Tx_Text_Box.Size = new System.Drawing.Size(278, 65);
+            this.Tx_Text_Box.TabIndex = 100;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(810, 420);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(135, 20);
+            this.label9.TabIndex = 101;
+            this.label9.Text = "Read messages";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(810, 494);
+            this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(131, 20);
+            this.label10.TabIndex = 102;
+            this.label10.Text = "Write messages";
             // 
             // Form_Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(901, 478);
+            this.ClientSize = new System.Drawing.Size(1251, 568);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.Tx_Text_Box);
+            this.Controls.Add(this.RxTextBox);
+            this.Controls.Add(this.WriteSH);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.EraseSH);
             this.Controls.Add(this.BootSmartHandle);
             this.Controls.Add(this.excutebank2);
             this.Controls.Add(this.BootManager);
@@ -556,7 +658,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_Settings";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "STM32Bootloading (v1.0.0) ";
+            this.Text = "EOS Positioning Systems (v1.0.0) ";
             this.Load += new System.EventHandler(this.Form_Settings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -599,5 +701,13 @@
         private System.Windows.Forms.Button BootManager;
         private System.Windows.Forms.Button excutebank2;
         private System.Windows.Forms.Button BootSmartHandle;
+        private System.Windows.Forms.Button EraseSH;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button WriteSH;
+        private System.Windows.Forms.TextBox RxTextBox;
+        private System.Windows.Forms.TextBox Tx_Text_Box;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }
