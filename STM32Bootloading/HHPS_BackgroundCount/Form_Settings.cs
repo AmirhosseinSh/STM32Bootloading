@@ -664,7 +664,7 @@ namespace STM32Bootloading
                     cmdByte[0] = 0x31; //WRITE COMMAND                   
                     cmdByte[1] = 0xCE;
                     port.Write(cmdByte, 0, 2);
-                    Tx_Text_Box.AppendText(BitConverter.ToString(cmdByte, 0, 2).Replace("-", "") + " - ");
+                    Tx_Text_Box.AppendText(Environment.NewLine + BitConverter.ToString(cmdByte, 0, 2).Replace("-", "") + " - ");
                     //Tx_Text_Box = cmdByte.ToString();
                     if (!acknowledge())
                     {
@@ -686,8 +686,8 @@ namespace STM32Bootloading
                     }
                     addr_reversed[4] = checksum;
                     port.Write(addr_reversed, 0, addr_reversed.Length);
-                    Tx_Text_Box.AppendText(BitConverter.ToString(addr_reversed, 0, 4).Replace("-", "") + " - ");
-                    Tx_Text_Box.AppendText(BitConverter.ToString(addr_reversed, 4, 1).Replace("-", "") + Environment.NewLine);
+                    Tx_Text_Box.AppendText(Environment.NewLine + BitConverter.ToString(addr_reversed, 0, 4).Replace("-", "") + " - ");
+                    Tx_Text_Box.AppendText(BitConverter.ToString(addr_reversed, 4, 1).Replace("-", ""));
                     if (!acknowledge())
                     {
                         return 0;
@@ -714,7 +714,7 @@ namespace STM32Bootloading
                         cmdByte[1] = 0xDE;
                         port.Write(cmdByte, 0, 2);
                         
-                        Tx_Text_Box.AppendText(Environment.NewLine + BitConverter.ToString(cmdByte, 0, 2).Replace("-", "") + " - ");
+                        Tx_Text_Box.AppendText(Environment.NewLine + Environment.NewLine + BitConverter.ToString(cmdByte, 0, 2).Replace("-", "") + " - ");
                         if (!acknowledge())
                         {
                             return 0;
@@ -726,7 +726,7 @@ namespace STM32Bootloading
                         addrByte[3] = 0x00;
                         addrByte[4] = 0x08;
                         port.Write(addrByte, 0, 5);
-                        Tx_Text_Box.AppendText(BitConverter.ToString(addrByte, 0, 5).Replace("-", "") + Environment.NewLine);
+                        Tx_Text_Box.AppendText(Environment.NewLine + BitConverter.ToString(addrByte, 0, 5).Replace("-", "") + Environment.NewLine);
                         if (!acknowledge())
                         {
                             return 0;
@@ -892,8 +892,10 @@ namespace STM32Bootloading
             if (rx_buff[0] == 0x79)
             {
                 RxTextBox.Text = BitConverter.ToString(rx_buff, 0, 1);
+                Tx_Text_Box.AppendText(" => ACK");
                 return true;
             }
+            Tx_Text_Box.AppendText(" => NACK");
             return false;
         }
         private void writebank1_Click(object sender, EventArgs e)
@@ -1789,8 +1791,11 @@ namespace STM32Bootloading
 
         private void BootSmartHandle_Click(object sender, EventArgs e)
         {
-            string msg = "$shhBootModeBT"; //request boot
-            MessageBox.Show($"Sent $shhBootModeBT \n Wait a few seconds");
+            MessageBox.Show($"Sent $SHH_BOOT_MODE then $shhBootModeBT \n After clicking OK, if feel a vibration, then you can proceed.\n\n If not, then reboot the device again.");
+            string msg = "$SHH_BOOT_MODE"; //request boot
+            port.Write(msg);
+            System.Threading.Thread.Sleep(100);
+            msg = "$shhBootModeBT";
             port.Write(msg);
             Enable_SH_BTNs();
         }
@@ -1895,7 +1900,9 @@ namespace STM32Bootloading
         {
             if (writebank_shh() == 1)
             {
-                MessageBox.Show($"Smart Handle Write Successful");
+                MessageBox.Show($"Smart Handle Write Successful \n Sending $stopBootModeBT to get to normal operation");
+                string msg = "$stopBootModeBT"; //request boot
+                port.Write(msg);
             }
             else
             {
