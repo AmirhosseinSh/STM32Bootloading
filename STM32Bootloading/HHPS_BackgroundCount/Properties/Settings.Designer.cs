@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace STM32Bootloading.Properties {
+namespace EosBootloading.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]

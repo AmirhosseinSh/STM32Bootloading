@@ -1,4 +1,4 @@
-﻿namespace STM32Bootloading
+﻿namespace EosBootloading
 {
     partial class Form_Settings
     {
@@ -56,7 +56,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.AutoProgramBank = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
+            this.AutoProgramBank2 = new System.Windows.Forms.Button();
             this.HextoBin = new System.Windows.Forms.Button();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.excutebank1 = new System.Windows.Forms.Button();
@@ -84,7 +84,7 @@
             this.TestMCU.Name = "TestMCU";
             this.TestMCU.Size = new System.Drawing.Size(159, 40);
             this.TestMCU.TabIndex = 1;
-            this.TestMCU.Text = "Test MCU ";
+            this.TestMCU.Text = "Check MCU Info";
             this.TestMCU.UseVisualStyleBackColor = false;
             this.TestMCU.Click += new System.EventHandler(this.TestMCU_Click);
             // 
@@ -264,7 +264,7 @@
             // 
             this.ReadFile.BackColor = System.Drawing.SystemColors.ButtonFace;
             this.ReadFile.Enabled = false;
-            this.ReadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ReadFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ReadFile.ForeColor = System.Drawing.Color.Chocolate;
             this.ReadFile.Location = new System.Drawing.Point(483, 72);
             this.ReadFile.Name = "ReadFile";
@@ -421,26 +421,26 @@
             this.AutoProgramBank.UseVisualStyleBackColor = false;
             this.AutoProgramBank.Click += new System.EventHandler(this.AutoProgramBank_Click);
             // 
-            // button12
+            // AutoProgramBank2
             // 
-            this.button12.BackColor = System.Drawing.SystemColors.Control;
-            this.button12.Enabled = false;
-            this.button12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button12.ForeColor = System.Drawing.Color.DarkCyan;
-            this.button12.Location = new System.Drawing.Point(1051, 232);
-            this.button12.Margin = new System.Windows.Forms.Padding(4);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(167, 62);
-            this.button12.TabIndex = 88;
-            this.button12.Text = "Auto Program\r\n Bank2\r\n";
-            this.button12.UseVisualStyleBackColor = false;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.AutoProgramBank2.BackColor = System.Drawing.SystemColors.Control;
+            this.AutoProgramBank2.Enabled = false;
+            this.AutoProgramBank2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AutoProgramBank2.ForeColor = System.Drawing.Color.DarkCyan;
+            this.AutoProgramBank2.Location = new System.Drawing.Point(1051, 232);
+            this.AutoProgramBank2.Margin = new System.Windows.Forms.Padding(4);
+            this.AutoProgramBank2.Name = "AutoProgramBank2";
+            this.AutoProgramBank2.Size = new System.Drawing.Size(167, 62);
+            this.AutoProgramBank2.TabIndex = 88;
+            this.AutoProgramBank2.Text = "Auto Program\r\n Bank2\r\n";
+            this.AutoProgramBank2.UseVisualStyleBackColor = false;
+            this.AutoProgramBank2.Click += new System.EventHandler(this.AutoProgramBank2_Click);
             // 
             // HextoBin
             // 
             this.HextoBin.BackColor = System.Drawing.SystemColors.Control;
             this.HextoBin.Enabled = false;
-            this.HextoBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.HextoBin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.HextoBin.ForeColor = System.Drawing.Color.Chocolate;
             this.HextoBin.Location = new System.Drawing.Point(483, 22);
             this.HextoBin.Margin = new System.Windows.Forms.Padding(4);
@@ -594,7 +594,7 @@
             this.label9.Location = new System.Drawing.Point(810, 420);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(135, 20);
+            this.label9.Size = new System.Drawing.Size(108, 16);
             this.label9.TabIndex = 101;
             this.label9.Text = "Read messages";
             // 
@@ -604,7 +604,7 @@
             this.label10.Location = new System.Drawing.Point(810, 494);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(131, 20);
+            this.label10.Size = new System.Drawing.Size(105, 16);
             this.label10.TabIndex = 102;
             this.label10.Text = "Write messages";
             // 
@@ -627,7 +627,7 @@
             this.Controls.Add(this.excutebank1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.HextoBin);
-            this.Controls.Add(this.button12);
+            this.Controls.Add(this.AutoProgramBank2);
             this.Controls.Add(this.AutoProgramBank);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -658,7 +658,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form_Settings";
             this.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.Text = "EOS Positioning Systems (v1.0.0) ";
+            this.Text = "EOS Positioning Systems (v1.0.1) ";
             this.Load += new System.EventHandler(this.Form_Settings_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -694,7 +694,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button AutoProgramBank;
-        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button AutoProgramBank2;
         private System.Windows.Forms.Button HextoBin;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button excutebank1;

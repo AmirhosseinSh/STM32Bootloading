@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace STM32Bootloading.Helpers
+namespace EosBootloading.Helpers
 {
     public static class CommandHelper
     {

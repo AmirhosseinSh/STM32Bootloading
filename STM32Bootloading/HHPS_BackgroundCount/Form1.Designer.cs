@@ -1,4 +1,4 @@
-﻿namespace STM32Bootloading
+﻿namespace EosBootloading
 {
     partial class Form1
     {

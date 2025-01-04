@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EosBootloading", "HHPS_BackgroundCount\EosBootloading.csproj", "{62FE8CAC-F8A1-493D-85F4-6D9DC4AB7236}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MySetup", "MySetup\MySetup.vdproj", "{D08F446C-2F5B-4585-AEFA-D0E5D49AE25F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62FE8CAC-F8A1-493D-85F4-6D9DC4AB7236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62FE8CAC-F8A1-493D-85F4-6D9DC4AB7236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62FE8CAC-F8A1-493D-85F4-6D9DC4AB7236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62FE8CAC-F8A1-493D-85F4-6D9DC4AB7236}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D08F446C-2F5B-4585-AEFA-D0E5D49AE25F}.Debug|Any CPU.ActiveCfg = Debug
+		{D08F446C-2F5B-4585-AEFA-D0E5D49AE25F}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {05CB3463-7C38-4ADE-9E27-70AF95CD5961}
+	EndGlobalSection
+EndGlobal

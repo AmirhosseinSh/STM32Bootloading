@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
-using STM32Bootloading.Helpers;
-using STM32Bootloading.Models;
+using EosBootloading.Helpers;
+using EosBootloading.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +19,7 @@ using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
-namespace STM32Bootloading
+namespace EosBootloading
 {
 
 
@@ -74,18 +74,22 @@ namespace STM32Bootloading
                 Tx_Text_Box.AppendText(BitConverter.ToString(dataByte8, 0, 2).Replace("-", "") + Environment.NewLine);
                 byte[] rx_buff1 = new byte[15];
                 rx_buff1 = ReadPortBytes(5);
-                RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 5).Replace("-", " ") + Environment.NewLine);
-                txt_DevVersion.Text = rx_buff1[1].ToString("x");
-
+                if (rx_buff1 != null)
+                {
+                    RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 5).Replace("-", " ") + Environment.NewLine);
+                    txt_DevVersion.Text = rx_buff1[1].ToString("x");
+                }
                 System.Threading.Thread.Sleep(10);
                 dataByte8[0] = 0x02;//request ID
                 dataByte8[1] = 0xFD;
                 port.Write(dataByte8, 0, 2);
                 Tx_Text_Box.AppendText(BitConverter.ToString(dataByte8, 0, 2).Replace("-", "") + Environment.NewLine);
                 rx_buff1 = ReadPortBytes(5);
-                RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 5).Replace("-", " ") + Environment.NewLine);
-                Numeric_Erros.Text = rx_buff1[3].ToString("x");
-
+                if (rx_buff1 != null)
+                {
+                    RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 5).Replace("-", " ") + Environment.NewLine);
+                    Numeric_Erros.Text = rx_buff1[3].ToString("x");
+                }
                 dataByte[0] = 0x00; //GET COMMAND               
                 dataByte[1] = 0xFF; //GET COMMAND               
                 port.Write(dataByte, 0, 2);
@@ -93,11 +97,13 @@ namespace STM32Bootloading
                 //dataByte[0] = 0xFF;
                 //port.Write(dataByte, 0, 1);
                 rx_buff1 = ReadPortBytes(15);
-                RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 15).Replace("-", " ") + Environment.NewLine);
-                MessageBox.Show($"Test Pass\n{rx_buff1[0]:x2}\n{rx_buff1[1]:x2}\n{rx_buff1[2]:x2}\n{rx_buff1[3]:x2}\n{rx_buff1[4]:x2}\n" +
-                 $"{rx_buff1[5]:x2}\n{rx_buff1[6]:x2}\n{rx_buff1[7]:x2}\n{rx_buff1[8]:x2}\n{rx_buff1[9]:x2}\n{rx_buff1[10]:x2}\n{rx_buff1[11]:x2}\n" +
-                 $"{rx_buff1[12]:x2}\n{rx_buff1[13]:x2}\n{rx_buff1[14]:x2}\n");
-                
+                if (rx_buff1 != null)
+                {
+                    RxTextBox.AppendText(BitConverter.ToString(rx_buff1, 0, 15).Replace("-", " ") + Environment.NewLine);
+                    MessageBox.Show($"Test Pass\n{rx_buff1[0]:x2}\n{rx_buff1[1]:x2}\n{rx_buff1[2]:x2}\n{rx_buff1[3]:x2}\n{rx_buff1[4]:x2}\n" +
+                     $"{rx_buff1[5]:x2}\n{rx_buff1[6]:x2}\n{rx_buff1[7]:x2}\n{rx_buff1[8]:x2}\n{rx_buff1[9]:x2}\n{rx_buff1[10]:x2}\n{rx_buff1[11]:x2}\n" +
+                     $"{rx_buff1[12]:x2}\n{rx_buff1[13]:x2}\n{rx_buff1[14]:x2}\n");
+                }
             }
             catch (Exception ex)
             {
@@ -189,21 +195,21 @@ namespace STM32Bootloading
         {
             TestMCU.Enabled = true;
             Btn_Disconnect.Enabled = true;
+            ReadFile.Enabled = true;
+            BootMaster.Enabled = false;
+            BootManager.Enabled = false;
+            BootSmartHandle.Enabled = true;
             Btn_Connect.Enabled = false;
             ReadBank1.Enabled = false;
             erasebank2.Enabled = false;
             eraseban1.Enabled = false;
             writebank1.Enabled = false;
-            ReadFile.Enabled = true;
             ReadBank2.Enabled = false;
             writebank2.Enabled = false;
             VerifyBank1.Enabled = false;
             VerifyBank2.Enabled = false;
-            BootMaster.Enabled = true;
-            BootManager.Enabled = true;
-            BootSmartHandle.Enabled = true;
             AutoProgramBank.Enabled = false;
-            BootManager.Enabled = true;
+            AutoProgramBank2.Enabled = false;
             excutebank1.Enabled = false;
             excutebank2.Enabled = false;
 
@@ -216,10 +222,10 @@ namespace STM32Bootloading
             TestMCU.Enabled = true;
             ReadFile.Enabled = true;
             Btn_Disconnect.Enabled = true;
+            BootSmartHandle.Enabled = true;
             Btn_Connect.Enabled = false;
             BootMaster.Enabled = false;
             BootManager.Enabled = false;
-            BootSmartHandle.Enabled = true;
             ReadBank1.Enabled = false;
             ReadBank2.Enabled = false;
             erasebank2.Enabled = false;
@@ -229,6 +235,7 @@ namespace STM32Bootloading
             VerifyBank1.Enabled = false;
             VerifyBank2.Enabled = false;
             AutoProgramBank.Enabled = false;
+            AutoProgramBank2.Enabled = false;
             excutebank1.Enabled = false;
             excutebank2.Enabled = false;
 
@@ -1621,7 +1628,7 @@ namespace STM32Bootloading
             try
             {
                 string msg = "$BootModeActivation\n\r"; //request boot
-                MessageBox.Show($"Wait a few seconds");
+                MessageBox.Show($"Wait untill you see all 3 lights in the middle to turn ON.");
                 port.Write(msg);
                 int device_connection = 1;
                 port.ReadTimeout = 1000;
@@ -1794,7 +1801,7 @@ namespace STM32Bootloading
             MessageBox.Show($"Sent $SHH_BOOT_MODE then $shhBootModeBT \n After clicking OK, if feel a vibration, then you can proceed.\n\n If not, then reboot the device again.");
             string msg = "$SHH_BOOT_MODE"; //request boot
             port.Write(msg);
-            System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(300);
             msg = "$shhBootModeBT";
             port.Write(msg);
             Enable_SH_BTNs();
@@ -1920,6 +1927,11 @@ namespace STM32Bootloading
             {
                 MessageBox.Show($"Smart Handle Erase Failed");
             }
+        }
+
+        private void AutoProgramBank2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STM32Bootloading.Helpers
+namespace EosBootloading.Helpers
 {
     public class IntensityHelper
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace STM32Bootloading
+namespace EosBootloading
 {
     public partial class Component1 : Component
     {
